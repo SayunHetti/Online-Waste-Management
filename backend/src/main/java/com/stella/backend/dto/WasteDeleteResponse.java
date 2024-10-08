@@ -7,10 +7,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private String token;
-    private String role;
-    private Integer user_id;
+public class WasteDeleteResponse {
+
+    private String message;
+
+    public WasteDeleteResponse( String message) {
+        this.message = message;
+    }
+
+
+
 }

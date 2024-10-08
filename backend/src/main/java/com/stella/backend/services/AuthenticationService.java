@@ -1,70 +1,68 @@
 package com.stella.backend.services;
 
+
+import com.stella.backend.config.Role;
+import com.stella.backend.dao.User;
 import com.stella.backend.dto.AuthenticationRequest;
 import com.stella.backend.dto.AuthenticationResponse;
 import com.stella.backend.dto.RegisterRequest;
-import com.stella.backend.masterservice.dao.User;
 import com.stella.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
-public class UserService {
+public class AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JWTService jwtService;
+    private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest registerRequest) {
+
         var user = User.builder()
-                .username(registerRequest.getUsername())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .first_name(registerRequest.getFirstname())
+                .last_name(registerRequest.getLastname())
                 .email(registerRequest.getEmail())
-                .name(registerRequest.getName())
-                .age(Integer.valueOf(registerRequest.getAge()))
-                .gender(registerRequest.getGender())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .age(registerRequest.getAge())
                 .address(registerRequest.getAddress())
+                .gender(registerRequest.getGender())
+                .role(Role.USER)
                 .build();
+
+        // Save user to database
         userRepository.save(user);
 
+        // Generate JWT token for the user
         var jwtToken = jwtService.generateToken(user);
+
+        // Return the token
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
+    public AuthenticationResponse authenticate(AuthenticationRequest authRequest) {
 
-    public AuthenticationResponse login(AuthenticationRequest authRequest) {
         // Authenticate user
-        log.info("Login request received {}", authRequest);
-        log.info(authRequest.getPassword());
-        log.info(authRequest.getUsername());
-
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authRequest.getUsername(), authRequest.getPassword()
+                authRequest.getEmail(),
+                authRequest.getPassword()
         ));
 
-        log.info("Authentication successful");
         // Get user details
-        var user = userRepository.findByUsername(authRequest.getUsername())
-                .orElseThrow(() -> {
-                    log.debug("User not found with username: {}", authRequest.getUsername());
-                    return new RuntimeException("User not found");
-                });
-        log.info(user.getUsername());
+        var user = userRepository.findByEmail(authRequest.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         // Generate JWT token
         var jwtToken = jwtService.generateToken(user);
-        log.info("JWT token: {}", jwtToken);
 
-        System.out.println(user);
         // Return the token
-        return AuthenticationResponse.builder().token(jwtToken).role(user.getRole().name()).build();
+        return AuthenticationResponse.builder().token(jwtToken).user_id(user.getUser_id()).role(user.getRole().name()).build();
     }
+
 }

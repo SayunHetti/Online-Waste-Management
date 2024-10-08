@@ -1,5 +1,4 @@
-package com.stella.backend.masterservice.dao;
-
+package com.stella.backend.dao;
 import com.stella.backend.config.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,38 +12,32 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "role")
-@Table(name = "t_user")
 @Builder
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "t_user")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
-    private Integer id;
-    @Column(nullable = false, unique = true)
-    private String username;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer user_id;
     @Column(nullable = false)
-    private String name;
-    @Column(nullable = false, unique = true)
+    private String first_name;
+    @Column(nullable = false)
+    private String last_name;
+    @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    private String age;
+    @Column(nullable = false)
     private String address;
     @Column(nullable = false)
     private String gender;
-    @Column(nullable = false)
-    private Integer age;
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,insertable = false,updatable = false)//insertable = false,updatable = false
     private Role role;
 
     @Override
@@ -53,14 +46,31 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getUsername() {
+        return email;
     }
 
     @Override
-    public String getUsername() {
-        return username;
+    public boolean isAccountNonExpired() {
+        return true;
     }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
+
 }
 
 

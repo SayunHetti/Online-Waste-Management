@@ -1,16 +1,13 @@
 package com.stella.backend.config;
 
 
-import com.stella.backend.services.JWTService;
-import com.stella.backend.services.UserService;
+import com.stella.backend.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,55 +17,54 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-
-    private final JWTService jwtService;
-
-
-    private final UserDetailsService userDetailsService;  // Assuming the UserService implements UserDetailsService
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request,
-                                    @NonNull HttpServletResponse response,
-                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
-        final String authorizationHeader = request.getHeader("Authorization");
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        final String username;
+        final String authorizationHeader = request.getHeader("Authorization");
         final String jwtToken;
+        final String userEmail;
 
         String path = request.getRequestURI();
-
-        //register login if they come we skip the jwt token checker
-
-        if (path.contains("/register") || path.contains("/login")) {
-            log.info("filtered resp");
-            filterChain.doFilter(request, response);
+        if (path.contains("/register") || path.contains("/authenticate")) {
+            filterChain.doFilter(request, response); // Skip custom logic and continue
             return;
         }
+
         if (authorizationHeader == null || authorizationHeader.isEmpty()) {
-            log.error("header missing");
-          throw new AuthenticationCredentialsNotFoundException("Authorization Header is missing");
+            throw new AuthenticationCredentialsNotFoundException("Authorization Header is missing.");
         }
 
         jwtToken = authorizationHeader.substring(7);
-        username = jwtService.extractUsername(jwtToken);
-        log.info("extracted username {}", username);
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+        userEmail = jwtService.extractUsername(jwtToken);
 
-            if (jwtService.validateToken(jwtToken, userDetails)) {
-                log.info("tk validated");
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        // Check if user is not already authenticated
+        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+
+            // Check if token is valid
+            if(jwtService.isTokenValid(jwtToken, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null,
+                        userDetails.getAuthorities()
+                );
+
+                // Set details of the authentication
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                // Set the authentication in the context
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
