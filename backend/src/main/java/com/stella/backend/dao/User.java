@@ -1,5 +1,6 @@
 package com.stella.backend.dao;
 import com.stella.backend.config.Role;
+import com.stella.backend.model.WasteEntry;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -44,7 +46,8 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
+    @OneToMany(mappedBy = "user")
+    private Set<WasteEntry> wasteEntries;
     @Override
     public String getUsername() {
         return email;

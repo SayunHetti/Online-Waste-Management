@@ -1,5 +1,6 @@
 package com.stella.backend.model;
 
+import com.stella.backend.dao.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,9 @@ public class WasteEntry {
     private Double recyclableWaste;
     private Double regularWaste;
 
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "user_id", insertable = false, updatable = false)
+    private User user;
     // Getters and Setters
 
 //    public Long getId() {

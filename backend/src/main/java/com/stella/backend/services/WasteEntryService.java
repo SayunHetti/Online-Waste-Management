@@ -18,6 +18,8 @@ public class WasteEntryService {
     private WasteEntryRepository wasteEntryRepository;
 
     public WasteEntryResponse saveWasteEntry(WasteEntryRequest wasteEntryDTO) {
+
+
         WasteEntry wasteEntry = new WasteEntry();
         wasteEntry.setUserId(wasteEntryDTO.getUserId());
         wasteEntry.setTotalWeight(wasteEntryDTO.getTotalWeight());
@@ -28,7 +30,14 @@ public class WasteEntryService {
 
         wasteEntryRepository.save(wasteEntry);
 
-        return new WasteEntryResponse(wasteEntry.getUserId(), "Waste entry created successfully.",wasteEntry.getTotalWeight(), wasteEntry.getFoodWaste(), wasteEntry.getEWaste(), wasteEntry.getRecyclableWaste(), wasteEntry.getRegularWaste());
+        return new WasteEntryResponse(
+                wasteEntry.getUserId(),
+                "Waste entry created successfully.",
+                wasteEntry.getTotalWeight(),
+                wasteEntry.getFoodWaste(),
+                wasteEntry.getEWaste(),
+                wasteEntry.getRecyclableWaste(),
+                wasteEntry.getRegularWaste());
     }
 
     public Optional<WasteEntry> getAllWasteEntriesByUserId(Long userId) {
