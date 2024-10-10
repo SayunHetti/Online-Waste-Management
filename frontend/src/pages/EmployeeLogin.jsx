@@ -7,13 +7,22 @@ const EmployeeLogin = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false); // State to manage loading status
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user_id');
 
     const handleLogin = async () => {
+        if (!userId || !token) {
+            setError('User is not authenticated');
+            return;
+        }
         setLoading(true); // Set loading to true when form submission starts
         setError(''); // Clear previous errors
 
         try {
-            const response = await axios.post('http://localhost:8080/api/employeelog/verify', null, { params: { code } });
+            const response = await axios.post('http://localhost:8080/api/employeelog/verify', null, { params: { code }, headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             if (response.data) {
                 navigate('/requests');
             } else {

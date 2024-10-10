@@ -2,9 +2,9 @@ package com.stella.backend.services;
 
 import com.stella.backend.dto.WasteCollectionRequestDTO;
 import com.stella.backend.dto.WasteCollectionResponseDTO;
-import com.stella.backend.model.Request;
+import com.stella.backend.model.GarbageRequest;
 import com.stella.backend.model.WasteCollection;
-import com.stella.backend.repository.RequestRepository;  // Import the Request repository
+import com.stella.backend.repository.CompletedRequestRepository;  // Import the Request repository
 import com.stella.backend.repository.WasteCollectionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,18 +17,18 @@ import java.time.LocalDateTime;
 @Slf4j // Enables logging using @Slf4j
 public class WasteCollectionService {
     private final WasteCollectionRepository wasteCollectionRepository;
-    private final RequestRepository requestRepository;  // Inject Request repository
+    private final CompletedRequestRepository requestRepository;  // Inject Request repository
 
     // Save Waste Collection with a Request DTO
     public WasteCollectionResponseDTO saveWasteCollection(Long requestId, WasteCollectionRequestDTO wasteCollectionRequestDTO, String route) {
         try {
             // Retrieve the Request using requestId
-            Request request = requestRepository.findById(requestId)
+            GarbageRequest request = requestRepository.findById(requestId)
                     .orElseThrow(() -> new RuntimeException("Request not found"));
 
             // Create a WasteCollection entity from the DTO
             WasteCollection wasteCollection = WasteCollection.builder()
-                    .userId(request.getUserId())  // Get userId from the retrieved Request
+                    .userId(request.getUserId().toString())  // Get userId from the retrieved Request
                     .imageUrl(wasteCollectionRequestDTO.getImageUrl())
                     .collectedDateTime(LocalDateTime.now())  // Set current time as collection time
                     .route(route)                             // Set route from query parameter

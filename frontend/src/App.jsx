@@ -5,11 +5,15 @@ import RequestsPage from "./pages/RequestsPage.jsx";
 import MapPage from "./pages/RouteMap.jsx";
 import FormSubmissionPage from "./pages/FormSubmissionPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
 
 const App = () => {
     return (
         <Router>
             <Routes>
+                <Route path="/register" element={<Register/>} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/" element={<EmployeeLogin />} />
                 <Route path="/requests" element={<RequestsPage />} />
                 <Route path="/map/:requestId" element={<MapPage />} />
