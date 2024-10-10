@@ -12,7 +12,6 @@ const Register = () => {
     const [gender, setGender] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
     const navigate = useNavigate(); // For navigation
 
     const handleRegister = async (e) => {
@@ -34,7 +33,7 @@ const Register = () => {
             setSuccess('Registration successful!');
             setTimeout(() => {
                 navigate('/login'); // Redirect to login page
-            }, 1500);
+            }, 800);
 
         } catch (err) {
             setError(err.response ? err.response.data.message : 'Registration failed');
