@@ -1,0 +1,33 @@
+package com.stella.backend.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+@Table(name = "t_waste_collection")
+public class WasteCollection {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String userId;
+
+    @Column(nullable = false)
+    private String imageUrl;  // URL of the image uploaded
+
+    @Column(nullable = false)
+    private LocalDateTime collectedDateTime;
+
+    @Column(nullable = false)
+    private String route;     // Route taken from map
+
+    @Column(nullable = false)
+    private int rating;       // Rating of the route
+}
