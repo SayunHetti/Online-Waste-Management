@@ -113,10 +113,13 @@ const HistoryPage = () => {
                         textAlign: 'left'
                     }}>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Request ID</th>
+                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Area</th> {/* New column for area */}
+                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Address</th> {/* New column for address */}
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Collection Date & Time</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Route</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Rating</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>Proof</th>
+                        <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>Completed</th> {/* New column for completed status */}
                     </tr>
                     </thead>
                     <tbody>
@@ -126,6 +129,8 @@ const HistoryPage = () => {
                             borderBottom: '1px solid #ddd'
                         }}>
                             <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.id}</td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.area}</td> {/* Display area */}
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.address}</td> {/* Display address */}
                             <td style={{ padding: '12px', border: '1px solid #ddd' }}>{new Date(item.collectedDateTime).toLocaleString()}</td>
                             <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.route}</td>
                             <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.rating}</td>
@@ -144,6 +149,9 @@ const HistoryPage = () => {
                                 ) : (
                                     <span style={{ color: '#888' }}>No image available</span>
                                 )}
+                            </td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>
+                                {item.completed ? 'Yes' : 'No'} {/* Display completed status */}
                             </td>
                         </tr>
                     ))}

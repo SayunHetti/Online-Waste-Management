@@ -19,8 +19,9 @@ public class WasteCollection {
     @Column(nullable = false)
     private String userId;
 
+    @Lob // Allows for storage of large objects
     @Column(nullable = false)
-    private String imageUrl;  // URL of the image uploaded
+    private String imageUrl;  // Base64 encoded image
 
     @Column(nullable = false)
     private LocalDateTime collectedDateTime;
