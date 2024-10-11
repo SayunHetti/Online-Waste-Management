@@ -232,24 +232,32 @@ const Dashboard = () => {
 
                 ) : !isEditing ? (
                     <div>
-                        <h2>Your Bin Status</h2>
+
                         {wasteData ? (
                             <div className="bin-status-container">
+                                <h2 className="bin-status-heading">Your Bin Status</h2>
                                 <div className="bins">
                                     <div className="bin">
                                         <img src={foodBin} alt="Food Waste Bin"/>
+                                        <p>Disposable Waste</p>
                                         <p>{wasteData.foodWaste} kg</p>
                                     </div>
                                     <div className="bin">
                                         <img src={eWasteBin} alt="E-Waste Bin"/>
+                                        <p>Electrical Waste</p>
                                         <p>{wasteData.ewaste} kg</p>
                                     </div>
                                     <div className="bin">
                                         <img src={recyclableBin} alt="Recyclable Waste Bin"/>
+                                        <p>Recycling waste</p>
                                         <p>{wasteData.recyclableWaste} kg</p>
+
                                     </div>
                                     <div className="bin">
-                                        <img src={regularBin} alt="Regular Waste Bin"/>
+                                        <div>
+                                            <img src={regularBin} alt="Regular Waste Bin"/>
+                                            <p>Domestic Waste</p>
+                                        </div>
                                         <p>{wasteData.regularWaste} kg</p>
                                     </div>
                                 </div>
@@ -287,21 +295,51 @@ const Dashboard = () => {
 
                     </div>
                 ) : (
-                    <div>
-                        {/* Update form */}
-                        <h3>Update Waste Data</h3>
+                    <div className="update-waste-container">
+                        <h3 className="update-heading">Update Waste Data</h3>
                         <form onSubmit={handleUpdate}>
-                            <label>Food Waste: <input type="number" value={foodWaste}
-                                                      onChange={(e) => setFoodWaste(e.target.value)}/></label>
-                            <label>E-Waste: <input type="number" value={eWaste}
-                                                   onChange={(e) => setEWaste(e.target.value)}/></label>
-                            <label>Recyclable Waste: <input type="number" value={recyclableWaste}
-                                                            onChange={(e) => setRecyclableWaste(e.target.value)}/></label>
-                            <label>Regular Waste: <input type="number" value={regularWaste}
-                                                         onChange={(e) => setRegularWaste(e.target.value)}/></label>
-                            <button type="submit" disabled={isLoading}>Update Waste Entry</button>
+                            <label className="update-label">
+                                Food Waste:
+                                <input
+                                    type="number"
+                                    value={foodWaste}
+                                    onChange={(e) => setFoodWaste(e.target.value)}
+                                    className="update-input"
+                                />
+                            </label>
+                            <label className="update-label">
+                                E-Waste:
+                                <input
+                                    type="number"
+                                    value={eWaste}
+                                    onChange={(e) => setEWaste(e.target.value)}
+                                    className="update-input"
+                                />
+                            </label>
+                            <label className="update-label">
+                                Recyclable Waste:
+                                <input
+                                    type="number"
+                                    value={recyclableWaste}
+                                    onChange={(e) => setRecyclableWaste(e.target.value)}
+                                    className="update-input"
+                                />
+                            </label>
+                            <label className="update-label">
+                                Regular Waste:
+                                <input
+                                    type="number"
+                                    value={regularWaste}
+                                    onChange={(e) => setRegularWaste(e.target.value)}
+                                    className="update-input"
+                                />
+                            </label>
+                            <button type="submit" className="update-button" disabled={isLoading}>
+                                Update Waste Entry
+                            </button>
                         </form>
                     </div>
+
                 )}
             </div>
         </div>

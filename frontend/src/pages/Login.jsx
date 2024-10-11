@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
-
+import '../assets/CSS/LoginForm.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,31 +32,42 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+        <div className="login-container">
+            <div className="login-screen">
+                <h2 className="login-header">Login</h2>
+                <form onSubmit={handleLogin} className="login-form">
+                    <div className="form-group email-group">
+                        <label htmlFor="login-email">Email:</label>
+                        <input
+                            type="email"
+                            id="login-email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            placeholder="Enter your email address"
+                        />
+                    </div>
+                    <div className="form-group password-group">
+                        <label htmlFor="login-password">Password:</label>
+                        <input
+                            type="password"
+                            id="login-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            placeholder="Enter your password"
+                        />
+                    </div>
+                    <button type="submit" className="login-button">Login</button>
+                </form>
+                {error && <p className="error-message">{error}</p>}
+                <div className="login-link-section">
+                    <p>Got no account? <a href="/register" className="login-link">Register</a></p>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            </div>
+
         </div>
+
     );
 };
 
