@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompletedResponseDTO {
     private Long id;
+    private String userId;
     private String area;
     private String address;
     private Boolean completed;

@@ -76,6 +76,7 @@ public class CompletedRequestService {
     private CompletedResponseDTO convertToResponseDTO(GarbageRequest request) {
         return CompletedResponseDTO.builder()
                 .id(request.getId())
+                .userId(request.getUserId().toString())
                 .area(request.getArea())
                 .address(request.getAddress())
                 .completed(request.getCompleted())
