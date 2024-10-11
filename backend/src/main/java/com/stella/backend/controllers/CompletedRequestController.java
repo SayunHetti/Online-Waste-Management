@@ -5,13 +5,14 @@ import com.stella.backend.dto.CompletedResponseDTO;
 import com.stella.backend.services.CompletedRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173/")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/garbage-requests")
+@RequestMapping("/api/requests")
 public class CompletedRequestController {
     private final CompletedRequestService garbageRequestService;
 

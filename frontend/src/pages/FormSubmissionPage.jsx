@@ -11,6 +11,8 @@ const FormSubmissionPage = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user_id');
 
     const params = new URLSearchParams(location.search);
     const routeString = params.get('route');
@@ -23,6 +25,10 @@ const FormSubmissionPage = () => {
     });
 
     const handleSubmit = async (e) => {
+        if (!userId || !token) {
+            setError('User is not authenticated');
+            return;
+        }
         e.preventDefault();
         setLoading(true);
 
@@ -34,11 +40,20 @@ const FormSubmissionPage = () => {
         try {
             await axios.post(`http://localhost:8080/api/waste-collection/submit/${requestId}?route=${encodeURIComponent(routeString)}`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
                 }
             });
 
-            await axios.put(`http://localhost:8080/api/requests/complete/${requestId}`);
+            await axios.put(
+                `http://localhost:8080/api/requests/complete/${requestId}`,
+                null,  // No body needed, so you can pass null
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,  // Add the Authorization header
+                    }
+                }
+            );
             navigate('/history');
         } catch (err) {
             const errorMessage = err.response && err.response.data && err.response.data.message

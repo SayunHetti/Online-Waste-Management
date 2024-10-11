@@ -5,6 +5,7 @@ import com.stella.backend.dto.WasteCollectionResponseDTO;
 import com.stella.backend.services.WasteCollectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin(origins = "http://localhost:5173/")
 @RestController

@@ -5,6 +5,7 @@ const HistoryPage = () => {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true); // State to manage loading status
     const [error, setError] = useState('');
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -13,7 +14,14 @@ const HistoryPage = () => {
 
             if (userId) {
                 try {
-                    const response = await axios.get(`/api/requests/completed?userId=${userId}`);
+                    const response = await axios.get(
+                        `http://localhost:8080/api/requests/completed?userId=${userId}`,
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${token}`,  // Add the Authorization header
+                            }
+                        }
+                    );
                     setHistory(response.data);
                 } catch (err) {
                     setError('Error fetching history. Please try again later.');

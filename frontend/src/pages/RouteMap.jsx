@@ -10,12 +10,20 @@ const MapPage = () => {
     const [wastePlace, setWastePlace] = useState([51.505, -0.09]); // Dummy coordinates for waste place
     const [employeeLocation] = useState([51.505, -0.09]); // Employee's current location (could be dynamic)
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchRoute = async () => {
             try {
                 // Simulating fetching route data based on request ID
-                const response = await axios.get(`/api/requests/${requestId}`);
+                const response = await axios.get(
+                    `http://localhost:8080/api/requests/${requestId}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,  // Add the Authorization header
+                        }
+                    }
+                );
                 const { wasteCollectionPlace } = response.data;
 
                 // Use actual coordinates from backend response if available

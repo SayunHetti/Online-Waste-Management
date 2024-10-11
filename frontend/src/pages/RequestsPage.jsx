@@ -6,13 +6,21 @@ const RequestsPage = () => {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true); // State to manage loading status
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchRequests = async () => {
             setLoading(true); // Set loading to true before fetching
             try {
-                const response = await axios.get('/api/requests/pending');
-                setRequests(response.data);
+                const response = await axios.get(
+                    'http://localhost:8080/api/requests/pending',
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,  // Add the Authorization header
+                        }
+                    }
+                );
+                setRequests(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error('Error fetching requests:', error);
             } finally {
@@ -52,7 +60,8 @@ const RequestsPage = () => {
                     <thead>
                     <tr style={{ backgroundColor: '#28a745', color: 'white', textAlign: 'left' }}>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Request ID</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Waste Collection Place</th>
+                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Area</th>
+                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Address</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Action</th>
                     </tr>
                     </thead>
@@ -60,7 +69,8 @@ const RequestsPage = () => {
                     {requests.map((req) => (
                         <tr key={req.id} style={{ backgroundColor: '#fff', borderBottom: '1px solid #ddd' }}>
                             <td style={{ padding: '12px', border: '1px solid #ddd' }}>{req.id}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{req.wasteCollectionPlace}</td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{req.area}</td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{req.address}</td>
                             <td style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>
                                 <button
                                     onClick={() => handleLocate(req.id)}
