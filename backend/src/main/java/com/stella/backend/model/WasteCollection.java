@@ -31,4 +31,7 @@ public class WasteCollection {
 
     @Column(nullable = false)
     private int rating;       // Rating of the route
+
+    @Column(nullable = false)
+    private Long requestId;   // Added requestId field
 }

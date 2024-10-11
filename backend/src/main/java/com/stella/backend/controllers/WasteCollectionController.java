@@ -20,4 +20,10 @@ public class WasteCollectionController {
                                                             @RequestParam String route) {
         return wasteCollectionService.saveWasteCollection(requestId, wasteCollectionRequestDTO, route);
     }
+
+    @GetMapping("/get-by-request/{requestId}")
+    public WasteCollectionResponseDTO getWasteCollectionByRequestId(@PathVariable Long requestId) {
+        return wasteCollectionService.getWasteCollectionByRequestId(requestId);
+    }
+
 }

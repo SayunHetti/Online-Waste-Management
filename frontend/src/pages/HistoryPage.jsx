@@ -3,13 +3,13 @@ import axios from 'axios';
 
 const HistoryPage = () => {
     const [history, setHistory] = useState([]);
-    const [loading, setLoading] = useState(true); // State to manage loading status
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchHistory = async () => {
-            setLoading(true); // Set loading to true before fetching
+            setLoading(true);
             const userId = localStorage.getItem('user_id');
 
             if (userId) {
@@ -18,20 +18,36 @@ const HistoryPage = () => {
                         `http://localhost:8080/api/requests/completed?userId=${userId}`,
                         {
                             headers: {
-                                'Authorization': `Bearer ${token}`,  // Add the Authorization header
+                                'Authorization': `Bearer ${token}`,
                             }
                         }
                     );
-                    setHistory(response.data);
+                    console.log(response);
+
+                    // Map through the response data to fetch collection details for each request
+                    // Map through the response data to fetch collection details for each request
+                    const completedRequests = await Promise.all(response.data.map(async (request) => {
+                        const collectionResponse = await axios.get(
+                            `http://localhost:8080/api/waste-collection/get-by-request/${request.id}`, // Pass as number
+                            {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                }
+                            }
+                        );
+                        return { ...request, collection: collectionResponse.data };
+                    }));
+
+                    setHistory(completedRequests);
                 } catch (err) {
                     setError('Error fetching history. Please try again later.');
                     console.error('Error fetching history:', err);
                 } finally {
-                    setLoading(false); // Set loading to false after fetching
+                    setLoading(false);
                 }
             } else {
                 setError('User ID not found in local storage');
-                setLoading(false); // Set loading to false if no user ID is found
+                setLoading(false);
             }
         };
 
@@ -57,7 +73,6 @@ const HistoryPage = () => {
                 <p style={{ color: '#666' }}>Track your past completed requests with details and images.</p>
             </div>
 
-            {/* Display loading spinner while data is being fetched */}
             {loading ? (
                 <div style={{
                     textAlign: 'center',
@@ -113,13 +128,12 @@ const HistoryPage = () => {
                         textAlign: 'left'
                     }}>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Request ID</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Area</th> {/* New column for area */}
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Address</th> {/* New column for address */}
+                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Area</th>
+                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Address</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Collection Date & Time</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Route</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Rating</th>
                         <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>Proof</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>Completed</th> {/* New column for completed status */}
                     </tr>
                     </thead>
                     <tbody>
@@ -129,18 +143,24 @@ const HistoryPage = () => {
                             borderBottom: '1px solid #ddd'
                         }}>
                             <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.id}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.area}</td> {/* Display area */}
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.address}</td> {/* Display address */}
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{new Date(item.collectedDateTime).toLocaleString()}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.route}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.rating}</td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.area}</td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.address}</td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+                                {item.collection ? new Date(item.collection.collectedDateTime).toLocaleString() : 'N/A'}
+                            </td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+                                {item.collection ? item.collection.route : 'N/A'}
+                            </td>
+                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+                                {item.collection ? item.collection.rating : 'N/A'}
+                            </td>
                             <td style={{
                                 padding: '12px',
                                 border: '1px solid #ddd',
                                 textAlign: 'center'
                             }}>
-                                {item.imageUrl ? (
-                                    <img src={item.imageUrl} alt="Waste Collection Proof" style={{
+                                {item.collection && item.collection.imageUrl ? (
+                                    <img src={item.collection.imageUrl} alt="Waste Collection Proof" style={{
                                         width: '80px',
                                         height: '80px',
                                         borderRadius: '5px',
@@ -149,9 +169,6 @@ const HistoryPage = () => {
                                 ) : (
                                     <span style={{ color: '#888' }}>No image available</span>
                                 )}
-                            </td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>
-                                {item.completed ? 'Yes' : 'No'} {/* Display completed status */}
                             </td>
                         </tr>
                     ))}
