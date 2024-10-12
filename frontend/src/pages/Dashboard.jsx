@@ -8,7 +8,7 @@ import recyclableBin from '../assets/images/RecyclableBin.png';
 import regularBin from '../assets/images/OrganicBin.png';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 const Dashboard = () => {
     const [wasteData, setWasteData] = useState(null);
     const [totalWeight, setTotalWeight] = useState('');
@@ -20,7 +20,6 @@ const Dashboard = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);  // Track if user is editing
-
     const navigate = useNavigate();
     const userId = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
@@ -80,7 +79,7 @@ const Dashboard = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setIsLoading(false);
-            setMessage('Waste entry saved successfully!');
+            alert('Waste entry saved successfully!');
             setTimeout(() => {
                 window.location.reload(); // Reload the page after save
             }, 2000);
@@ -129,7 +128,7 @@ const Dashboard = () => {
     // Handle delete
     const handleDelete = async () => {
         if (!userId || !token) {
-            setMessage('User is not authenticated');
+            alert('User is not authenticated');
             return;
         }
 
@@ -137,26 +136,27 @@ const Dashboard = () => {
             await axios.delete(`http://localhost:8080/user/waste/delete/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            setMessage('Waste entry deleted successfully');
+            alert('Waste entry deleted successfully');
             setTimeout(() => {
                 window.location.reload(); // Reload the page after update
             }, 800);
         } catch (err) {
-            setMessage('Error deleting waste entry');
+            alert('Error deleting waste entry');
         }
     };
 
     return (
         <div>
             <div>
-                <h2 >Waste Data Dashboard</h2>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
                 {message && <p>{message}</p>}
                 {error && <p>{error}</p>}
-
                 {/* If no waste data, show form to add new waste entry */}
                 {!wasteData ? (
                     <div className="overlay">
-                        <h3 className="overlay-heading">Add Waste Data</h3>
+                        <h3 className="overlay-heading">Ooops! Seems Like Your Bin is Empty. </h3>
+                        <h3 className="overlay-heading"> Lets Add Waste Data</h3>
                         <form onSubmit={handleSave}>
                             <label className="overlay-label">
                                 Total Weight:
@@ -200,7 +200,7 @@ const Dashboard = () => {
                             <label className="overlay-label">
                                 Recyclable Waste:
                                 {recyclableWaste === '' &&
-                                <span className="error-message">*</span>}
+                                    <span className="error-message">*</span>}
                                 <input
                                     type="number"
                                     value={recyclableWaste}
@@ -234,8 +234,26 @@ const Dashboard = () => {
                     <div>
 
                         {wasteData ? (
+                            <div className="flex_BigContainer_rewardRedeemContainer">
                             <div className="bin-status-container">
-                                <h2 className="bin-status-heading">Your Bin Status</h2>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <div>
+                                        <i
+                                            className="fas fa-trash"
+                                            style={{color: 'red', cursor: 'pointer'}}
+                                            onClick={handleDelete}>
+                                        </i>
+                                    </div>
+                                    <h2 className="bin-status-heading">Your Bin Status</h2>
+                                    <div>
+                                        <i
+                                            className="fas fa-pencil-alt"
+                                            style={{color: 'black', marginRight: '10px', cursor: 'pointer'}}
+                                            onClick={() => setIsEditing(true)}>
+                                        </i>
+                                    </div>
+                                </div>
+
                                 <div className="bins">
                                     <div className="bin">
                                         <img src={foodBin} alt="Food Waste Bin"/>
@@ -284,13 +302,66 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
+                                <div>
+                                    <div className="rewardRedeemContainer">
+                                        <h2 className="rewardHeader">Payments</h2>
+                                        <div className="rewardContent">
+                                            <div className="leftContent">
+                                                <img
+                                                    src="http://getdrawings.com/free-icon-bw/reward-points-icon-20.png" // Replace with your icon URL
+                                                    alt="Icon"
+                                                    className="rewardIcon"
+                                                />
+                                                <span
+                                                    className="rewardValue">{wasteData.recyclableWaste * 50} points</span>
+                                            </div>
+                                            <Link to="/payment" className="redeemButton">View</Link>
+                                        </div>
+                                        <div className="rewardContent">
+                                            <div className="leftContent">
+                                                <img
+                                                    src="https://cdn2.iconfinder.com/data/icons/business-03-solid/64/Bill-document-file-finance-money-page-1024.png" // Replace with your icon URL
+                                                    alt="Icon"
+                                                    className="rewardIcon"
+                                                />
+                                                <span className="rewardValue">LKR {wasteData.foodWaste * 10}</span>
+                                            </div>
+                                            <Link to="/payment" className="redeemButton">Pay</Link>
+                                        </div>
+                                    </div>
+                                    <div className="rewardRedeemContainer">
+                                        <h2 className="rewardHeader">History Table</h2>
+                                        <div className="rewardContent">
+                                            <div className="leftContent">
+                                                <img
+                                                    src="http://getdrawings.com/free-icon-bw/reward-points-icon-20.png" // Replace with your icon URL
+                                                    alt="Icon"
+                                                    className="rewardIcon"
+                                                />
+                                                <span
+                                                    className="rewardValue">{wasteData.recyclableWaste * 50} points</span>
+                                            </div>
+                                            <Link to="/payment" className="redeemButton">View</Link>
+                                        </div>
+                                        <div className="rewardContent">
+                                            <div className="leftContent">
+                                                <img
+                                                    src="https://cdn2.iconfinder.com/data/icons/business-03-solid/64/Bill-document-file-finance-money-page-1024.png" // Replace with your icon URL
+                                                    alt="Icon"
+                                                    className="rewardIcon"
+                                                />
+                                                <span className="rewardValue">LKR {wasteData.foodWaste * 10}</span>
+                                            </div>
+                                            <Link to="/payment" className="redeemButton">Pay</Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         ) : (
                             <p>No waste data available</p>
                         )}
 
                         {/* Show edit and delete buttons */}
-                        <button onClick={() => setIsEditing(true)}>Update Waste Entry</button>
-                        <button onClick={handleDelete}>Delete Waste Entry</button>
 
 
                     </div>
