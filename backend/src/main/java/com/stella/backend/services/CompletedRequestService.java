@@ -80,6 +80,11 @@ public class CompletedRequestService {
                 .area(request.getArea())
                 .address(request.getAddress())
                 .completed(request.getCompleted())
+                .totalWeight(request.getTotalWeight())
+                .foodWaste(request.getFoodWaste())
+                .eWaste(request.getEWaste())
+                .recyclableWaste(request.getRecyclableWaste())
+                .regularWaste(request.getRegularWaste())
                 .build();
     }
 }

@@ -15,4 +15,9 @@ public class CompletedResponseDTO {
     private String area;
     private String address;
     private Boolean completed;
+    private Double totalWeight;
+    private Double foodWaste;
+    private Double eWaste;
+    private Double recyclableWaste;
+    private Double regularWaste;
 }

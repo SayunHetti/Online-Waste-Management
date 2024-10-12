@@ -127,13 +127,15 @@ const HistoryPage = () => {
                         color: 'white',
                         textAlign: 'left'
                     }}>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Request ID</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Area</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Address</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Collection Date & Time</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Route</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Rating</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>Proof</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>Request ID</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>Total weight</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>foodWaste</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>eWaste</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>recyclableWaste</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>regularWaste</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>Collection Date & Time</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd'}}>route</th>
+                        <th style={{padding: '12px', border: '1px solid #ddd', textAlign: 'center'}}>Proof</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -142,17 +144,17 @@ const HistoryPage = () => {
                             backgroundColor: '#fff',
                             borderBottom: '1px solid #ddd'
                         }}>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.id}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.area}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{item.address}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>{item.id}</td>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>{item.totalWeight}</td>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>{item.foodWaste}</td>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>{item.ewaste}</td>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>{item.recyclableWaste}</td>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>{item.regularWaste}</td>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>
                                 {item.collection ? new Date(item.collection.collectedDateTime).toLocaleString() : 'N/A'}
                             </td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+                            <td style={{padding: '12px', border: '1px solid #ddd'}}>
                                 {item.collection ? item.collection.route : 'N/A'}
-                            </td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>
-                                {item.collection ? item.collection.rating : 'N/A'}
                             </td>
                             <td style={{
                                 padding: '12px',
@@ -165,9 +167,9 @@ const HistoryPage = () => {
                                         height: '80px',
                                         borderRadius: '5px',
                                         border: '1px solid #ccc'
-                                    }} />
+                                    }}/>
                                 ) : (
-                                    <span style={{ color: '#888' }}>No image available</span>
+                                    <span style={{color: '#888'}}>No image available</span>
                                 )}
                             </td>
                         </tr>
