@@ -5,6 +5,6 @@ package com.stella.backend.config;
  */
 public enum Role {
     USER,
+    EMPLOYEE,
     ADMIN,
-    DOCTOR
 }

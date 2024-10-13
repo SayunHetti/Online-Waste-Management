@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 const UserRequests = () => {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -85,7 +84,7 @@ const UserRequests = () => {
                     </button>
                 </div>
             ) : (
-                <table style={{ width: '100%', borderCollapse: 'collapse', margin: '0 auto', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                <table style={{ width: '', borderCollapse: 'collapse', margin: '0 auto', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
                     <thead>
                     <tr style={{ backgroundColor: '#28a745', color: 'white', textAlign: 'left' }}>
                         <th style={{ padding: '12px', border: '1px solid #ddd' }}>Request ID</th>

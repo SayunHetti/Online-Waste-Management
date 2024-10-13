@@ -155,7 +155,6 @@ const Dashboard = () => {
                 {/* If no waste data, show form to add new waste entry */}
                 {!wasteData ? (
                     <div className="overlay">
-                        <h3 className="overlay-heading">Ooops! Seems Like Your Bin is Empty. </h3>
                         <h3 className="overlay-heading"> Lets Add Waste Data</h3>
                         <form onSubmit={handleSave}>
                             <label className="overlay-label">
@@ -238,11 +237,11 @@ const Dashboard = () => {
                             <div className="bin-status-container">
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                     <div>
-                                        <i
-                                            className="fas fa-trash"
-                                            style={{color: 'red', cursor: 'pointer'}}
-                                            onClick={handleDelete}>
-                                        </i>
+                                        {/*<i*/}
+                                        {/*    className="fas fa-trash"*/}
+                                        {/*    style={{color: 'red', cursor: 'pointer'}}*/}
+                                        {/*    onClick={handleDelete}>*/}
+                                        {/*</i>*/}
                                     </div>
                                     <h2 className="bin-status-heading">Your Bin Status</h2>
                                     <div>
@@ -313,7 +312,7 @@ const Dashboard = () => {
                                                     className="rewardIcon"
                                                 />
                                                 <span
-                                                    className="rewardValue">{wasteData.recyclableWaste * 50} points</span>
+                                                    className="rewardValue">{wasteData.recyclableWaste * 10} points</span>
                                             </div>
                                             <Link to="/payment" className="redeemButton">View</Link>
                                         </div>
@@ -419,3 +418,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
