@@ -1,0 +1,66 @@
+/* UpdateGarbageRequest.css */
+
+/* Overlay container */
+.update-garbage-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Adjust width as needed */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for 3D effect */
+    z-index: 1000; /* Ensure it is on top of other content */
+}
+
+/* Heading styles */
+.update-garbage-heading {
+    color: #333; /* Dark text color */
+    margin-bottom: 15px;
+    text-align: center; /* Center the heading */
+}
+
+/* Label styles */
+.update-garbage-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555; /* Slightly lighter text color */
+}
+
+/* Input field styles */
+.update-garbage-input,
+.update-garbage-textarea,
+.update-garbage-select {
+    width: calc(100% - 40px); /* Full width minus 10px for the right padding */
+    padding: 10px; /* Padding inside the input */
+    margin-top: 10px; /* Space between label and input */
+    margin-right: 40px; /* Adds a 10px gap from the right */
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for input fields */
+}
+
+/* Button styles */
+.update-garbage-button {
+    width: 50%; /* Full width */
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Button shadow */
+}
+
+.update-garbage-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Error message styles */
+.update-garbage-error {
+    color: red; /* Red text color for error messages */
+    margin-top: 5px; /* Space above the error message */
+    font-size: 0.9em; /* Slightly smaller text */
+}
