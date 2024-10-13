@@ -7,6 +7,7 @@ import FormSubmissionPage from "./pages/FormSubmissionPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
+import RequestTracking from "./pages/RequestTracking.jsx";
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                 <Route path="/register" element={<Register/>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<EmployeeLogin />} />
+                <Route path="/track" element={<RequestTracking />} />
                 <Route path="/requests" element={<RequestsPage />} />
                 <Route path="/map/:requestId" element={<MapPage />} />
                 <Route path="/form-submission/:requestId" element={<FormSubmissionPage />} />

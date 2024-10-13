@@ -6,6 +6,7 @@ import com.stella.backend.dao.User;
 import com.stella.backend.dto.AuthenticationRequest;
 import com.stella.backend.dto.AuthenticationResponse;
 import com.stella.backend.dto.RegisterRequest;
+import com.stella.backend.dto.UserAddressResponse;
 import com.stella.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -63,6 +67,21 @@ public class AuthenticationService {
 
         // Return the token
         return AuthenticationResponse.builder().token(jwtToken).user_id(user.getUser_id()).address(user.getAddress()).role(user.getRole().name()).build();
+    }
+
+    public List<UserAddressResponse> getUsersByRole(String role) {
+        // Convert string role to enum and retrieve users
+        Role userRole = Role.valueOf(role.toUpperCase());
+        List<User> users = userRepository.findByRole(userRole);
+
+        // Map users to response DTO
+        return users.stream()
+                .map(user -> UserAddressResponse.builder()
+                        .user_id(user.getUser_id())
+                        .address(user.getAddress())
+                        .role(user.getRole().name())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }
