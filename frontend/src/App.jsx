@@ -13,7 +13,9 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Header from "./components/Header.jsx";
 import UnauthorizedHeader from "./components/UnauthorizedHeader.jsx";
 import Profile from "./pages/Profile.jsx"; // Import the new header
-
+import CreateGarbageRequest from './Components/CreateGarbageRequest';
+import ViewGarbageRequests from './Components/ViewGarbageRequests.jsx'
+import UpdateGarbageRequest from './Components/UpdateGarbageRequest.jsx';
 const App = () => {
     return (
         <Router>
@@ -30,6 +32,11 @@ const App = () => {
                 <Route path="/form-submission/:requestId" element={<FormSubmissionPage />} />
                 <Route path="/history" element={<HistoryPage />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/add-request" element={<CreateGarbageRequest />} />
+                <Route path="/register" element={<Register/>} />
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/view-requests" element={<ViewGarbageRequests />} />
+                <Route path="/update-request/:userId/:requestId" element={<UpdateGarbageRequest />} />
             </Routes>
         </Router>
     );
@@ -42,6 +49,7 @@ const HeaderSwitch = () => {
     if (location.pathname === "/login" || location.pathname === "/register") {
         return <UnauthorizedHeader />; // Render NonUserHeader for login and register pages
     }
+
 
     return <Header />; // Render the regular Header for other pages
 };
