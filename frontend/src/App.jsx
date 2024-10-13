@@ -1,4 +1,12 @@
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
+import './App.css'
+import EmployeeLogin from "./pages/EmployeeLogin.jsx";
+import RequestsPage from "./pages/RequestsPage.jsx";
+import MapPage from "./pages/RouteMap.jsx";
+import FormSubmissionPage from "./pages/FormSubmissionPage.jsx";
+import HistoryPage from "./pages/HistoryPage.jsx";
+import RequestTracking from "./pages/RequestTracking.jsx";
+import UserRequests from "./pages/UserRequests.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -14,6 +22,13 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/employeeLogin" element={<EmployeeLogin />} />
+                <Route path="/track" element={<RequestTracking />} />
+                <Route path="/ongoing" element={<UserRequests />} />
+                <Route path="/requests" element={<RequestsPage />} />
+                <Route path="/map/:requestId" element={<MapPage />} />
+                <Route path="/form-submission/:requestId" element={<FormSubmissionPage />} />
+                <Route path="/history" element={<HistoryPage />} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
         </Router>
