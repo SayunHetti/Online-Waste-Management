@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../assets/css/RequestsPage.css'; // Import the CSS file
 
 const RequestsPage = () => {
     const [requests, setRequests] = useState([]);
-    const [loading, setLoading] = useState(true); // State to manage loading status
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchRequests = async () => {
-            setLoading(true); // Set loading to true before fetching
+            setLoading(true);
             try {
                 const response = await axios.get(
                     'http://localhost:8080/api/requests/pending',
                     {
                         headers: {
-                            'Authorization': `Bearer ${token}`,  // Add the Authorization header
+                            'Authorization': `Bearer ${token}`,
                         }
                     }
                 );
@@ -24,7 +25,7 @@ const RequestsPage = () => {
             } catch (error) {
                 console.error('Error fetching requests:', error);
             } finally {
-                setLoading(false); // Set loading to false after fetching
+                setLoading(false);
             }
         };
         fetchRequests();
@@ -35,56 +36,36 @@ const RequestsPage = () => {
     };
 
     return (
-        <div style={{ fontFamily: 'Arial, sans-serif', padding: '30px', backgroundColor: '#f4f4f9', minHeight: '100vh' }}>
-            <h2 style={{ textAlign: 'center', color: '#333', marginBottom: '20px' }}>Pending Requests</h2>
+        <div className="requests-container">
+            <h2 className="requests-header">Pending Requests</h2>
 
-            {loading ? ( // Show loading effect while data is being fetched
-                <div style={{ textAlign: 'center', fontSize: '18px', color: '#555' }}>
+            {loading ? (
+                <div style={{ textAlign: 'center', color: '#555' }}>
                     <p>Loading...</p>
-                    <div className="loader" style={{ border: '5px solid #ccc', borderTop: '5px solid #28a745', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite', margin: '0 auto' }}></div>
-                    <style>
-                        {`
-                            @keyframes spin {
-                                0% { transform: rotate(0deg); }
-                                100% { transform: rotate(360deg); }
-                            }
-                        `}
-                    </style>
+                    <div className="loader"></div>
                 </div>
-            ) : requests.length === 0 ? ( // Check if there are no requests
-                <div style={{ textAlign: 'center', fontSize: '18px', color: '#555' }}>
-                    <p>No data available</p>
-                </div>
+            ) : requests.length === 0 ? (
+                <div className="no-data">No data available</div>
             ) : (
-                <table style={{ width: '100%', borderCollapse: 'collapse', margin: '0 auto', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                <table className="requests-table">
                     <thead>
-                    <tr style={{ backgroundColor: '#28a745', color: 'white', textAlign: 'left' }}>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Request ID</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Area</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Address</th>
-                        <th style={{ padding: '12px', border: '1px solid #ddd' }}>Action</th>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Area</th>
+                        <th>Address</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {requests.map((req) => (
-                        <tr key={req.id} style={{ backgroundColor: '#fff', borderBottom: '1px solid #ddd' }}>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{req.id}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{req.area}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd' }}>{req.address}</td>
-                            <td style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'center' }}>
+                        <tr key={req.id}>
+                            <td>{req.id}</td>
+                            <td>{req.area}</td>
+                            <td>{req.address}</td>
+                            <td style={{ textAlign: 'center' }}>
                                 <button
+                                    className="request-action-button"
                                     onClick={() => handleLocate(req.id)}
-                                    style={{
-                                        backgroundColor: '#28a745',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '5px',
-                                        padding: '10px 15px',
-                                        cursor: 'pointer',
-                                        fontSize: '14px',
-                                    }}
-                                    onMouseOver={(e) => (e.target.style.backgroundColor = '#218838')}
-                                    onMouseOut={(e) => (e.target.style.backgroundColor = '#28a745')}
                                 >
                                     Locate
                                 </button>

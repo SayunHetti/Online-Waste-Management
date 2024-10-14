@@ -45,6 +45,7 @@ const Dashboard = () => {
                     setRegularWaste(response.data.regularWaste);
                 }
             } catch (err) {
+                setError(err.response?.data?.message || 'Something went wrong');
                 navigate('/login');
                 alert('Session Expired Please Re-login');
               
@@ -304,7 +305,7 @@ const Dashboard = () => {
                             </div>
                                 <div>
                                     <div className="rewardRedeemContainer">
-                                        <h2 className="rewardHeader">Payments</h2>
+                                        <h2 className="rewardHeader">Fine and Points You will Gain</h2>
                                         <div className="rewardContent">
                                         <div className="leftContent">
                                                 <img
@@ -324,9 +325,8 @@ const Dashboard = () => {
                                                     alt="Icon"
                                                     className="rewardIcon"
                                                 />
-                                                <span className="rewardValue">Payment Summary</span>
+                                                <span className="rewardValue">{wasteData.foodWaste * 10} Fine</span>
                                             </div>
-                                            <Link to="/add-request" className="redeemButton">View</Link>
                                         </div>
                                     </div>
                                     <div className="rewardRedeemContainer">
@@ -339,9 +339,9 @@ const Dashboard = () => {
                                                     className="rewardIcon"
                                                 />
                                                 <span
-                                                    className="rewardValue">Bin Summary</span>
+                                                    className="rewardValue">Bin Details</span>
                                             </div>
-                                            <Link to="/payment" className="redeemButton">View</Link>
+                                            <Link to="/bin-summary" className="redeemButton">View</Link>
                                         </div>
 
                                     </div>

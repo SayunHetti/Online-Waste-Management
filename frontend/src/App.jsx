@@ -16,6 +16,7 @@ import Profile from "./pages/Profile.jsx"; // Import the new header
 import CreateGarbageRequest from './Components/CreateGarbageRequest';
 import ViewGarbageRequests from './Components/ViewGarbageRequests.jsx'
 import UpdateGarbageRequest from './Components/UpdateGarbageRequest.jsx';
+import BinSummary from "./pages/BinSummary.jsx";
 const App = () => {
     return (
         <Router>
@@ -27,6 +28,7 @@ const App = () => {
                 <Route path="/employeeLogin" element={<EmployeeLogin />} />
                 <Route path="/track" element={<RequestTracking />} />
                 <Route path="/ongoing" element={<UserRequests />} />
+                <Route path="/bin-summary" element={<BinSummary />} />
                 <Route path="/requests" element={<RequestsPage />} />
                 <Route path="/map/:requestId" element={<MapPage />} />
                 <Route path="/form-submission/:requestId" element={<FormSubmissionPage />} />

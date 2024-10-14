@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
+import '../assets/css/FormSubmissionPage.css'; // Import the stylesheet
 
 const FormSubmissionPage = () => {
     const { requestId } = useParams();
@@ -11,7 +12,7 @@ const FormSubmissionPage = () => {
     const [rating, setRating] = useState(0);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [successMessage, setSuccessMessage] = useState('');  // Success message state
+    const [successMessage, setSuccessMessage] = useState('');
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 
@@ -65,7 +66,6 @@ const FormSubmissionPage = () => {
                 }
             );
 
-            // Fetch the latest waste collection entry
             const response = await axios.get(`http://localhost:8080/api/requests/${requestId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -75,13 +75,11 @@ const FormSubmissionPage = () => {
             const entry = response.data;
             const userId = parseInt(entry.userId, 10);
 
-            // Delete the user based on the latest entry's userId
             await axios.delete(`http://localhost:8080/user/waste/delete/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             });
-
 
             setSuccessMessage('Waste has been collected successfully, and the user data has been removed.');
         } catch (err) {
@@ -96,69 +94,19 @@ const FormSubmissionPage = () => {
     };
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '20px',
-            backgroundColor: '#f4f4f9',
-            minHeight: '100vh',
-            fontFamily: 'Arial, sans-serif'
-        }}>
-            <div style={{
-                textAlign: 'center',
-                marginBottom: '30px'
-            }}>
-                <h1 style={{
-                    fontSize: '32px',
-                    fontWeight: 'bold',
-                    color: '#333'
-                }}>Route Completion Form</h1>
-                <p style={{
-                    fontSize: '18px',
-                    color: '#555'
-                }}>Please upload a proof image and rate the route</p>
+        <div className="form-submission-container">
+            <div className="form-submission-header">
+                <h1 className="form-submission-title">Route Completion Form</h1>
+                <p className="form-submission-subtitle">Please upload a proof image and rate the route</p>
             </div>
 
-            <div style={{
-                backgroundColor: '#fff',
-                padding: '30px',
-                borderRadius: '10px',
-                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-                width: '400px',
-                textAlign: 'center',
-            }}>
-                <div style={{
-                    marginBottom: '20px',
-                    fontSize: '18px',
-                    color: '#333'
-                }}>
+            <div className="form-submission-card">
+                <div className="form-submission-route">
                     <strong>Route:</strong> {routeString}
                 </div>
 
-                <form onSubmit={handleSubmit} style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                }}>
-                    <div {...getRootProps()} style={file ? {
-                        border: '2px solid #28a745',
-                        padding: '20px',
-                        marginBottom: '20px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        color: '#28a745',
-                        textAlign: 'center',
-                        backgroundColor: '#e6ffe6',
-                    } : {
-                        border: '2px dashed #ccc',
-                        padding: '20px',
-                        marginBottom: '20px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        color: '#888',
-                        textAlign: 'center',
-                    }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div {...getRootProps()} className={`form-submission-dropzone ${file ? 'active' : 'dashed'}`}>
                         <input {...getInputProps()} />
                         {file ? (
                             <p>Selected file: {file.name}</p>
@@ -167,11 +115,7 @@ const FormSubmissionPage = () => {
                         )}
                     </div>
 
-                    <label style={{
-                        fontSize: '16px',
-                        margin: '10px 0',
-                        color: '#333'
-                    }}>
+                    <label className="form-submission-label">
                         Route Rating:
                         <input
                             type="number"
@@ -179,57 +123,24 @@ const FormSubmissionPage = () => {
                             onChange={(e) => setRating(e.target.value)}
                             min="1"
                             max="5"
-                            style={{
-                                marginLeft: '10px',
-                                padding: '5px',
-                                fontSize: '16px',
-                                width: '60px'
-                            }}
+                            className="form-submission-input"
                         />
                     </label>
 
                     <button
                         type="submit"
-                        style={{
-                            backgroundColor: '#28a745',
-                            color: '#fff',
-                            padding: '12px 20px',
-                            border: 'none',
-                            borderRadius: '5px',
-                            fontSize: '16px',
-                            cursor: 'pointer',
-                            marginTop: '20px',
-                            width: '100%',
-                            position: 'relative',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
+                        className="form-submission-button"
                         disabled={loading}
                     >
                         {loading ? (
-                            <div style={{
-                                width: '20px',
-                                height: '20px',
-                                border: '3px solid #f3f3f3',
-                                borderTop: '3px solid #28a745',
-                                borderRadius: '50%',
-                                animation: 'spin 1s linear infinite'
-                            }} />
+                            <div className="form-submission-loading" />
                         ) : (
                             'Submit'
                         )}
                     </button>
 
-                    {error && <p style={{
-                        color: 'red',
-                        marginTop: '20px',
-                    }}>{error}</p>}
-
-                    {successMessage && <p style={{
-                        color: 'green',
-                        marginTop: '20px',
-                    }}>{successMessage}</p>}
+                    {error && <p className="form-submission-error">{error}</p>}
+                    {successMessage && <p className="form-submission-success">{successMessage}</p>}
                 </form>
             </div>
         </div>

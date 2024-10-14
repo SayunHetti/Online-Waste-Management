@@ -1,0 +1,65 @@
+.bin-summary-container {
+    padding: 20px;
+
+    border: 2px solid green;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 100px;
+    background-color: white;
+}
+
+.bin-summary-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4caf50; /* Green color */
+}
+
+.bin-summary-description {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+}
+
+.bin-summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.bin-summary {
+    padding: 15px;
+    border: 1px solid green;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: transform 0.2s; /* Animation on hover */
+    text-align: center; /* Center content */
+}
+
+.bin-summary:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Different hover colors for each bin */
+.food-waste:hover {
+    background-color: #ffeb3b; /* Yellow */
+}
+
+.e-waste:hover {
+    background-color: lightcoral; /* Red */
+}
+
+.recyclable-waste:hover {
+    background-color: #2196f3; /* Blue */
+}
+
+.regular-waste:hover {
+    background-color: #8bc34a; /* Light Green */
+}
+
+.bin-summary-description {
+    margin-top: 10px;
+    font-size: 17px;
+    color: #666; /* Gray color for descriptions */
+    line-height: 1.5; /* Improved readability */
+}
