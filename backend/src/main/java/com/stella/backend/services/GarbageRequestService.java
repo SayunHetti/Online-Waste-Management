@@ -1,6 +1,7 @@
 package com.stella.backend.services;
 
 import com.stella.backend.dto.GarbageRequestDTO;
+import com.stella.backend.dto.WasteStatsDTO;
 import com.stella.backend.model.GarbageRequest;
 import com.stella.backend.model.WasteEntry;
 import com.stella.backend.repository.GarbageRequestRepository;
@@ -72,5 +73,8 @@ public class GarbageRequestService {
         } else {
             throw new RuntimeException("You can only update your own requests");
         }
+    }
+    public List<WasteStatsDTO> getAreaWiseWasteStatistics() {
+        return garbageRequestRepository.getAreaWiseWasteStats();
     }
 }

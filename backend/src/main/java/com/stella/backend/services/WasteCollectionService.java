@@ -1,5 +1,6 @@
 package com.stella.backend.services;
 
+import com.stella.backend.dto.RouteRatingDTO;
 import com.stella.backend.dto.WasteCollectionRequestDTO;
 import com.stella.backend.dto.WasteCollectionResponseDTO;
 import com.stella.backend.model.GarbageRequest;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -71,5 +73,21 @@ public class WasteCollectionService {
                 .requestId(wasteCollection.getRequestId()) // Include requestId in response
                 .build();
     }
+    /**
+     * Retrieve the top-rated waste collection routes.
+     *
+     * @return List of RouteRatingDTO containing route names and ratings.
+     */
+    public List<RouteRatingDTO> getTopRatedRoutes() {
+        log.info("Fetching top-rated routes based on waste collection ratings");
+        List<RouteRatingDTO> topRatedRoutes = wasteCollectionRepository.findAllOrderByRatingDesc();
 
+        if (topRatedRoutes.isEmpty()) {
+            log.warn("No top-rated routes found.");
+        } else {
+            log.info("Found {} top-rated routes", topRatedRoutes.size());
+        }
+
+        return topRatedRoutes;
+    }
 }
