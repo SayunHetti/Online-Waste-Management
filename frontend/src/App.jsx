@@ -17,6 +17,8 @@ import CreateGarbageRequest from './Components/CreateGarbageRequest';
 import ViewGarbageRequests from './Components/ViewGarbageRequests.jsx'
 import UpdateGarbageRequest from './Components/UpdateGarbageRequest.jsx';
 import BinSummary from "./pages/BinSummary.jsx";
+import AdminDashBoard from "./pages/Admin/AdminDashBoard.jsx";
+import RatingPage from "./pages/Admin/Rating.jsx";
 const App = () => {
     return (
         <Router>
@@ -38,6 +40,8 @@ const App = () => {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/view-requests" element={<ViewGarbageRequests />} />
                 <Route path="/update-request/:userId/:requestId" element={<UpdateGarbageRequest />} />
+                <Route path="/Admin-dashboard" element={<AdminDashBoard/>} />
+                <Route path="/Admin-rating" element={<RatingPage/>} />
             </Routes>
         </Router>
     );

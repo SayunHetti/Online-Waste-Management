@@ -1,0 +1,105 @@
+/* Ensure the navbar is fixed */
+.admin-dashboard-container {
+    margin-left: 220px; /* Adjust this according to the width of your navbar */
+}
+
+.dashboard {
+    padding: 20px;
+    margin: 50px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5; /* Light background for the dashboard */
+    font-family: 'Arial', sans-serif;
+    overflow-y: auto; /* Enable scrolling on overflow */
+}
+
+
+h1, h2 {
+    color: #339900; /* Dark green for headings */
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #020202;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #020202;
+}
+
+th {
+    background-color: #339900; /* Dark green background for table headers */
+    color: #fff; /* White text for table headers */
+}
+
+td {
+    background-color: #ffffff; /* Light background for table rows */
+    color: #333; /* Dark text color */
+}
+
+.chart-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f8f5; /* Slightly lighter green background for the chart container */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fixed navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px; /* Adjust the width of your navbar */
+    height: 100%;
+    background-color: #339900; /* Navbar background */
+    padding-top: 20px;
+    z-index: 1000; /* Ensure the navbar stays on top */
+}
+
+/* Styling for the Top Rated Routes section */
+.rating-box {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #e6f7ff; /* Light blue background for rating box */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.rating-box h2 {
+    color: #007acc; /* Blue color for the rating box title */
+}
+
+.top-rated-routes {
+    width: 100%;
+    border-collapse: collapse;
+    color: #000;
+}
+
+.top-rated-routes th {
+    background-color: #007acc; /* Blue background for top-rated routes table */
+    color: white; /* White text */
+}
+
+.top-rated-routes td {
+    background-color: #ffffff; /* Light background for table rows */
+}
+.ratings-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007acc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.ratings-link:hover {
+    background-color: #005f99;
+}

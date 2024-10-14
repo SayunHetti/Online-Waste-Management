@@ -26,7 +26,11 @@ const Login = () => {
             setTimeout(() => {
                 if (response.data.role === 'EMPLOYEE') {
                     navigate('/employeeLogin');
-                } else {
+                }
+                else if (response.data.role === 'ADMIN') {
+                    navigate('/Admin-dashboard');
+                }
+                else {
                     navigate('/dashboard');
                 }
             }, 800);
