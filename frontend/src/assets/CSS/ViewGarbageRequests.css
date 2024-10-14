@@ -1,0 +1,205 @@
+.garbageRequests__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    font-family: 'Sans-serif';
+}
+
+.garbageRequests__redeemPoints {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    width: 300px;
+}
+
+.garbageRequests__redeemPointsCard {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px;
+}
+
+.garbageRequests__redeemPointsTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.garbageRequests__redeemPointsValue {
+    font-size: 24px;
+    color: #4CAF50;
+}
+
+.garbageRequests__billingTitle {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.garbageRequests__payMessage {
+    margin-top: 10px;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.garbageRequests__tableContainer {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.garbageRequests__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.garbageRequests__table th, .garbageRequests__table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.garbageRequests__table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+
+
+.garbageRequests__status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.garbageRequests__statusCompleted {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.garbageRequests__statusPending {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.garbageRequests__billingCard {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 300px;
+}
+
+.garbageRequests__billingItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.garbageRequests__billingTotal {
+    font-weight: bold;
+    font-size: 24px;
+    color: #000;
+}
+
+.garbageRequests__title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.garbageRequests__noRequests {
+    font-size: 18px;
+    font-style: italic;
+    color: #555;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.garbageRequests__error {
+    font-size: 18px;
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.garbageRequests__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.garbageRequests__spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.garbageRequests__addButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 16px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.garbageRequests__addButton:hover {
+    background-color: #45a049;
+}
+
+.garbageRequests__updateButton,
+.garbageRequests__deleteButton {
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: default;
+    outline: none;
+}
+
+.garbageRequests__updateButton {
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+}
+
+.garbageRequests__deleteButton {
+    color: #f44336;
+    border: 2px solid #f44336;
+}
+
+.garbageRequests__updateButton:focus,
+.garbageRequests__deleteButton:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.garbageRequests__updateButton::-moz-focus-inner,
+.garbageRequests__deleteButton::-moz-focus-inner {
+    border: 0;
+}
