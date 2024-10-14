@@ -9,6 +9,7 @@ import com.stella.backend.repository.WasteCollectionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -55,7 +56,7 @@ public class WasteCollectionService {
             throw e;
         }
     }
-
+    @Transactional
     public WasteCollectionResponseDTO getWasteCollectionByRequestId(Long requestId) {
         WasteCollection wasteCollection = wasteCollectionRepository.findByRequestId(requestId)
                 .orElseThrow(() -> new RuntimeException("Waste Collection not found for the given requestId"));

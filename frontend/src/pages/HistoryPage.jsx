@@ -23,7 +23,6 @@ const HistoryPage = () => {
                         }
                     );
                     console.log(response);
-
                     // Map through the response data to fetch collection details for each request
                     // Map through the response data to fetch collection details for each request
                     const completedRequests = await Promise.all(response.data.map(async (request) => {
@@ -35,6 +34,8 @@ const HistoryPage = () => {
                                 }
                             }
                         );
+
+
                         return { ...request, collection: collectionResponse.data };
                     }));
 

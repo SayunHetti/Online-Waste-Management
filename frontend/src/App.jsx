@@ -22,7 +22,7 @@ const App = () => {
             <HeaderSwitch />
             <Routes>
                 <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/employeeLogin" element={<EmployeeLogin />} />
                 <Route path="/track" element={<RequestTracking />} />
@@ -33,7 +33,6 @@ const App = () => {
                 <Route path="/history" element={<HistoryPage />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/add-request" element={<CreateGarbageRequest />} />
-                <Route path="/register" element={<Register/>} />
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/view-requests" element={<ViewGarbageRequests />} />
                 <Route path="/update-request/:userId/:requestId" element={<UpdateGarbageRequest />} />

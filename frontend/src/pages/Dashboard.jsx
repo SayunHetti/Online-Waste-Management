@@ -314,7 +314,7 @@ const Dashboard = () => {
                                                 <span
                                                     className="rewardValue">{wasteData.recyclableWaste * 10} points</span>
                                             </div>
-                                            <Link to="/payment" className="redeemButton">View</Link>
+                                            <Link to="/add-request" className="redeemButton">View</Link>
                                         </div>
                                         <div className="rewardContent">
                                             <div className="leftContent">
@@ -325,7 +325,7 @@ const Dashboard = () => {
                                                 />
                                                 <span className="rewardValue">LKR {wasteData.foodWaste * 10}</span>
                                             </div>
-                                            <Link to="/payment" className="redeemButton">Pay</Link>
+                                            <Link to="/add-request" className="redeemButton">Pay</Link>
                                         </div>
                                     </div>
                                     <div className="rewardRedeemContainer">
