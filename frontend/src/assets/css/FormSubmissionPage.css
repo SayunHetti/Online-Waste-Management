@@ -1,0 +1,133 @@
+.form-submission-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f0f8f4; /* Soft green background */
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-submission-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-submission-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2e7d32; /* Darker green */
+}
+
+.form-submission-subtitle {
+    font-size: 20px;
+    color: #555;
+}
+
+.form-submission-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+    width: 400px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.form-submission-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.form-submission-route {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.form-submission-dropzone {
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    transition: border 0.3s, background-color 0.3s;
+}
+
+.form-submission-dropzone.dashed {
+    border: 2px dashed #ccc;
+    color: #888;
+    background-color: #f9f9f9;
+}
+
+.form-submission-dropzone.active {
+    border: 2px solid #4caf50; /* Bright green */
+    color: #4caf50;
+    background-color: #e8f5e9; /* Lighter green */
+}
+
+.form-submission-label {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.form-submission-input {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 16px;
+    width: 60px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border 0.3s;
+}
+
+.form-submission-input:focus {
+    border: 1px solid #4caf50; /* Green border on focus */
+}
+
+.form-submission-button {
+    background-color: #4caf50; /* Bright green */
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.form-submission-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.form-submission-loading {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4caf50; /* Bright green */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.form-submission-error {
+    color: red;
+    margin-top: 20px;
+}
+
+.form-submission-success {
+    color: #4caf50; /* Bright green */
+    margin-top: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

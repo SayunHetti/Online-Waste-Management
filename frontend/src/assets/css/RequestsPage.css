@@ -1,0 +1,83 @@
+.requests-container {
+    font-family: 'Arial', sans-serif;
+    padding: 40px 20px;
+    background-color: #e8f5e9; /* Light green background */
+    min-height: 100vh;
+}
+
+.requests-header {
+    text-align: center;
+    color: #2e7d32; /* Darker green */
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.loader {
+    border: 5px solid #ccc;
+    border-top: 5px solid #4caf50; /* Bright green */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+.requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners */
+}
+
+.requests-table thead {
+    background-color: #4caf50; /* Bright green */
+    color: white;
+}
+
+.requests-table th, .requests-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.requests-table tbody tr {
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.requests-table tbody tr:hover {
+    background-color: #f1f8e9; /* Light green on hover */
+}
+
+.request-action-button {
+    background-color: #4caf50; /* Bright green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.request-action-button:hover {
+    background-color: #388e3c; /* Darker green */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.request-action-button:focus {
+    outline: none; /* Remove outline on focus */
+}
+
+.no-data {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
