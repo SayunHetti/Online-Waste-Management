@@ -5,10 +5,10 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 // Custom red marker for the user location
-const redIcon = new L.Icon({
+const createIcon = (size) => new L.Icon({
     iconUrl: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=glyphish_target|ff0000',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
+    iconSize: size,
+    iconAnchor: [size[0] / 2, size[1]],
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
 });
@@ -49,7 +49,6 @@ const RequestTracking = () => {
     useEffect(() => {
         const fetchEmployeeLocation = async () => {
             try {
-                // Fetch the employee address by role
                 const response = await axios.get('http://localhost:8080/user/by-role', {
                     params: { role: 'EMPLOYEE' },
                     headers: { Authorization: `Bearer ${token}` },
@@ -127,7 +126,7 @@ const RequestTracking = () => {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     {employeeLocation && <Marker position={employeeLocation} />}
-                    {userLocation && <Marker position={userLocation} icon={redIcon} />}
+                    {userLocation && <Marker position={userLocation} icon={createIcon([35, 61])} />} {/* Increased size */}
                     {route.length > 0 && <Polyline positions={route} color="blue" />}
                 </MapContainer>
             )}

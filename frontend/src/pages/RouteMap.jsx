@@ -4,12 +4,12 @@ import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import axios from 'axios';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import '../assets/css/MapPage.css'; // Importing the stylesheet
 
-// Custom red marker for the destination
-const redIcon = new L.Icon({
-    iconUrl: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=glyphish_target|ff0000',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
+const createIcon = (size) => new L.Icon({
+    iconUrl: 'https://cdn3.iconfinder.com/data/icons/map-pins-v-2/512/map_pin_destination_location_adress_street-256.png',
+    iconSize: size,
+    iconAnchor: [size[0] / 2, size[1]],
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
 });
@@ -25,9 +25,9 @@ const MapPage = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const employeeAddress = localStorage.getItem('address');
-    const mapRef = useRef(); // Create a ref for the map container
+    const mapRef = useRef();
     const openCageApiKey = import.meta.env.VITE_REACT_OPENCAGE_API_KEY;
-    console.log('OpenCage API Key:', openCageApiKey);
+    const [zoomLevel, setZoomLevel] = useState(13);
 
     useEffect(() => {
         const geocodeAddress = async (address) => {
@@ -41,7 +41,6 @@ const MapPage = () => {
 
                 if (response.data.results.length > 0) {
                     const { lat, lng } = response.data.results[0].geometry;
-                    console.log(`Geocoded coordinates for ${address}: `, lat, lng); // Log geocoded coordinates
                     return [parseFloat(lat), parseFloat(lng)];
                 } else {
                     throw new Error("Invalid address");
@@ -74,9 +73,8 @@ const MapPage = () => {
                 setRoute([employeeCoords, wasteCoords]);
                 setErrorMessage('');
 
-                // Set the view to the employee location
                 if (mapRef.current) {
-                    mapRef.current.setView(employeeCoords, 13); // Adjust zoom level as needed
+                    mapRef.current.setView(employeeCoords, zoomLevel);
                 }
             } catch (error) {
                 console.error("Error fetching route data: ", error);
@@ -93,10 +91,8 @@ const MapPage = () => {
             const employeeCoordsArray = inputEmployeeCoords.split(',').map(Number);
             const wasteCoordsArray = inputWasteCoords.split(',').map(Number);
             finalRoute = [employeeCoordsArray, wasteCoordsArray];
-            console.log('Using user-inputted coordinates: ', finalRoute); // Log user input coordinates
         } else {
             finalRoute = route;
-            console.log('Using auto-generated route: ', finalRoute); // Log auto-generated route
         }
 
         const routeString = JSON.stringify(finalRoute);
@@ -104,62 +100,58 @@ const MapPage = () => {
     };
 
     return (
-        <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', maxWidth: '900px', margin: 'auto' }}>
-            <h2 style={{ color: '#333', textAlign: 'center', marginBottom: '20px' }}>Route to Waste Collection Place</h2>
+        <div className="map-page-container">
+            <h2 className="map-page-title">Route to Waste Collection Place</h2>
             {errorMessage ? (
-                <div style={{ textAlign: 'center', color: 'red', marginBottom: '20px' }}>
+                <div className="map-page-error">
                     {errorMessage}
-                    <div style={{ marginTop: '20px' }}>
-                        <h3 style={{ marginBottom: '10px' }}>Please input coordinates manually</h3>
-                        <div style={{ marginBottom: '10px' }}>
-                            <label style={{ marginRight: '10px' }}>Employee Location (Lat, Lng): </label>
+                    <div className="map-page-input-container">
+                        <h3 className="map-page-input-title">Please input coordinates manually</h3>
+
+                        <div className="map-page-input-group">
+                            <label className="map-page-input-label">Employee Location (Lat, Lng): </label>
                             <input
+                                className="map-page-input"
                                 type="text"
                                 value={inputEmployeeCoords}
                                 onChange={(e) => setInputEmployeeCoords(e.target.value)}
                                 placeholder="e.g. 51.505, -0.09"
-                                style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc', width: '300px' }}
                             />
                         </div>
-                        <div>
-                            <label style={{ marginRight: '10px' }}>Waste Collection Place (Lat, Lng): </label>
+
+                        <div className="map-page-input-group">
+                            <label className="map-page-input-label">Waste Collection Place (Lat, Lng): </label>
                             <input
+                                className="map-page-input"
                                 type="text"
                                 value={inputWasteCoords}
                                 onChange={(e) => setInputWasteCoords(e.target.value)}
                                 placeholder="e.g. 51.515, -0.09"
-                                style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc', width: '300px' }}
                             />
                         </div>
                     </div>
+
                 </div>
             ) : (
-                <MapContainer ref={mapRef} center={employeeLocation || [51.505, -0.09]} zoom={13}
-                              style={{ height: "400px", width: "100%", borderRadius: '10px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                <MapContainer
+                    ref={mapRef}
+                    center={employeeLocation || [51.505, -0.09]}
+                    zoom={zoomLevel}
+                    className="map-page-map-container"
+                    onzoomend={() => setZoomLevel(mapRef.current.getZoom())}
+                >
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    {employeeLocation && <Marker position={employeeLocation} />}
-                    {wastePlace && <Marker position={wastePlace} icon={redIcon} />}
-                    {route.length > 0 && <Polyline positions={route} color="blue" />}
+                    {employeeLocation && <Marker position={employeeLocation}/>}
+                    {wastePlace && <Marker position={wastePlace} icon={createIcon([35, 61])}/>}
+                    {route.length > 0 && <Polyline positions={route} color="blue"/>}
                 </MapContainer>
             )}
             <button
+                className="map-page-button"
                 onClick={handleCompleted}
-                style={{
-                    backgroundColor: 'white',
-                    marginTop: 20,
-                    color: 'black',
-                    border: '2px solid green',
-                    padding: '10px 20px',
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    transition: 'background-color 0.3s ease, color 0.3s ease',
-                    borderRadius: '5px',
-                }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = 'green'}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = 'white'}
             >
                 Completed
             </button>
