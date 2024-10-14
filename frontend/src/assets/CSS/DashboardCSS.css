@@ -75,6 +75,9 @@ h2 {
     margin-left: 75px;/* Space above progress items */
     margin-bottom: 20px; /* Space below progress items */
 }
+.progress-bar-warning {
+    stroke: red; /* Warning color */
+}
 
 .progress-item {
     text-align: center; /* Center the text */
@@ -230,4 +233,11 @@ button:disabled {
     align-items: flex-start; /* Align items at the start */
     margin: 5px; /* Margin for spacing */
     gap: 5px; /* Optional: space between the two containers */
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height for centering */
 }

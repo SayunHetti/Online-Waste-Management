@@ -9,6 +9,7 @@ const CreateGarbageRequest = () => {
         requestDate: '',
         address: '',
         comments: '',
+        vehicleType:'',
     });
 
     const [errors, setErrors] = useState({
@@ -80,6 +81,7 @@ const CreateGarbageRequest = () => {
             requestDate: formData.requestDate,
             address: formData.address,
             comments: formData.comments,
+            vehicleType:formData.vehicleType
         };
 
         try {
@@ -138,6 +140,22 @@ const CreateGarbageRequest = () => {
                         <option value="District 13">chilaw</option>
                         <option value="District 14">Ampara</option>
                         <option value="District 15 ">Polonnaruwa</option>
+                    </select>
+                    {errors.area && <span className="create-garbage-error">{errors.area}</span>}
+                </label>
+                <label className="create-garbage-label">
+                    VehicleType:
+                    <select
+                        name="vehicleType"
+                        value={formData.vehicleType}
+                        onChange={handleChange}
+                        required
+                        className="create-garbage-select"
+                    >
+                        <option value="">Select Request Type</option>
+                        <option value="vehicleType">Truck</option>
+                        <option value="vehicleType">Regular</option>
+
                     </select>
                     {errors.area && <span className="create-garbage-error">{errors.area}</span>}
                 </label>

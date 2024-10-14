@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import '../assets/CSS/LoginForm.css';
@@ -28,7 +28,7 @@ const Login = () => {
                     navigate('/employeeLogin');
                 } else {
                     navigate('/dashboard');
-                } // Redirect to login page
+                }
             }, 800);
         } catch (err) {
             setError('Login failed, please try again.');

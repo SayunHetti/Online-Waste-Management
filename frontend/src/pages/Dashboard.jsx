@@ -24,6 +24,7 @@ const Dashboard = () => {
     const userId = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
+
     // Fetch waste data on component mount
     useEffect(() => {
         const fetchWasteData = async () => {
@@ -48,15 +49,41 @@ const Dashboard = () => {
                 setError(err.response?.data?.message || 'Something went wrong');
                 navigate('/login');
                 alert('Session Expired Please Re-login');
-              
+
             }
         };
 
         fetchWasteData().then();
     }, [userId, token, navigate]);
 
+    const totalWeightValue = parseFloat(totalWeight) || 1; // Avoid division by zero
+    const foodWastePercentage = (parseFloat(foodWaste) / totalWeightValue) * 100;
+    const eWastePercentage = (parseFloat(eWaste) / totalWeightValue) * 100;
+    const recyclableWastePercentage = (parseFloat(recyclableWaste) / totalWeightValue) * 100;
+    const regularWastePercentage = (parseFloat(regularWaste) / totalWeightValue) * 100;
+
+    //form validation for total weight
+    const validateForm = () => {
+        const totalWaste = parseFloat(foodWaste) + parseFloat(eWaste) + parseFloat(recyclableWaste) + parseFloat(regularWaste);
+        const totalWeightValue = parseFloat(totalWeight);
+
+        if (totalWeightValue < 0 || foodWaste < 0 || eWaste < 0 || recyclableWaste < 0 || regularWaste < 0) {
+            alert('Weights cannot be negative.');
+            return false;
+        }
+
+        if (totalWaste > totalWeightValue) {
+            alert('The sum of waste weights cannot exceed the total weight.');
+            return false;
+        }
+
+        setError('');
+        return true;
+    };
     // Handle save (for new entries)
-    const handleSave = async () => {
+    const handleSave = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+        if (!validateForm()) return; // Validate inputs
         setError('');
         setIsLoading(true);
 
@@ -83,7 +110,7 @@ const Dashboard = () => {
             alert('Waste entry saved successfully!');
             setTimeout(() => {
                 window.location.reload(); // Reload the page after save
-            }, 2000);
+            }, 500);
         } catch (err) {
             setIsLoading(false);
             setError(err.response?.data?.message || 'Something went wrong');
@@ -91,8 +118,9 @@ const Dashboard = () => {
     };
 
     // Handle update (for existing entries)
-    const handleUpdate = async () => {
-
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
         setError('');
         setIsLoading(true);
 
@@ -116,17 +144,17 @@ const Dashboard = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setIsLoading(false);
-            setMessage('Waste entry updated successfully!');
+            alert('Waste entry updated successfully!');
             setTimeout(() => {
                 window.location.reload(); // Reload the page after update
-            }, 2000);
+            }, 800);
         } catch (err) {
             setIsLoading(false);
             setError(err.response?.data?.message || 'Something went wrong');
         }
     };
 
-    // Handle delete
+    //Handle delete
     // const handleDelete = async () => {
     //     if (!userId || !token) {
     //         alert('User is not authenticated');
@@ -235,79 +263,119 @@ const Dashboard = () => {
 
                         {wasteData ? (
                             <div className="flex_BigContainer_rewardRedeemContainer">
-                            <div className="bin-status-container">
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <div>
-                                        {/*<i*/}
-                                        {/*    className="fas fa-trash"*/}
-                                        {/*    style={{color: 'red', cursor: 'pointer'}}*/}
-                                        {/*    onClick={handleDelete}>*/}
-                                        {/*</i>*/}
-                                    </div>
-                                    <h2 className="bin-status-heading">Your Bin Status</h2>
-                                    <div>
-                                        <i
-                                            className="fas fa-pencil-alt"
-                                            style={{color: 'black', marginRight: '10px', cursor: 'pointer'}}
-                                            onClick={() => setIsEditing(true)}>
-                                        </i>
-                                    </div>
-                                </div>
-
-                                <div className="bins">
-                                    <div className="bin">
-                                        <img src={foodBin} alt="Food Waste Bin"/>
-                                        <p>Disposable Waste</p>
-                                        <p>{wasteData.foodWaste} kg</p>
-                                    </div>
-                                    <div className="bin">
-                                        <img src={eWasteBin} alt="E-Waste Bin"/>
-                                        <p>Electrical Waste</p>
-                                        <p>{wasteData.ewaste} kg</p>
-                                    </div>
-                                    <div className="bin">
-                                        <img src={recyclableBin} alt="Recyclable Waste Bin"/>
-                                        <p>Recycling waste</p>
-                                        <p>{wasteData.recyclableWaste} kg</p>
-
-                                    </div>
-                                    <div className="bin">
+                                <div className="bin-status-container">
+                                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                         <div>
-                                            <img src={regularBin} alt="Regular Waste Bin"/>
-                                            <p>Domestic Waste</p>
+                                            {/*<i*/}
+                                            {/*    className="fas fa-trash"*/}
+                                            {/*    style={{color: 'red', cursor: 'pointer'}}*/}
+                                            {/*    onClick={handleDelete}>*/}
+                                            {/*</i>*/}
                                         </div>
-                                        <p>{wasteData.regularWaste} kg</p>
-                                    </div>
-                                </div>
-                                <div className="circular-progress">
-                                    <div className="progress-item">
-                                        <CircularProgressbar value={wasteData.foodWaste} maxValue={100}
-                                                             text={`${wasteData.foodWaste}%`}/>
-                                        <p>Food</p>
-                                    </div>
-                                    <div className="progress-item">
-                                        <CircularProgressbar value={wasteData.ewaste} maxValue={100}
-                                                             text={`${wasteData.ewaste}%`}/>
-                                        <p>E-Waste</p>
-                                    </div>
-                                    <div className="progress-item">
-                                        <CircularProgressbar value={wasteData.recyclableWaste} maxValue={100}
-                                                             text={`${wasteData.recyclableWaste}%`}/>
-                                        <p>Recyclable</p>
+                                        <h2 className="bin-status-heading">Your Bin Status</h2>
+                                        <div>
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                style={{color: 'black', marginRight: '10px', cursor: 'pointer'}}
+                                                onClick={() => setIsEditing(true)}>
+                                            </i>
+                                        </div>
                                     </div>
 
-                                    <div className="progress-item">
-                                        <CircularProgressbar value={wasteData.regularWaste} maxValue={100}
-                                                             text={`${wasteData.regularWaste}%`}/>
-                                        <p>Regular</p>
+                                    <div className="bins">
+                                        <div className="bin">
+                                            <img src={foodBin} alt="Food Waste Bin"/>
+                                            <p>Disposable Waste</p>
+                                            <p>{wasteData.foodWaste} kg</p>
+                                        </div>
+                                        <div className="bin">
+                                            <img src={eWasteBin} alt="E-Waste Bin"/>
+                                            <p>Electrical Waste</p>
+                                            <p>{wasteData.ewaste} kg</p>
+                                        </div>
+                                        <div className="bin">
+                                            <img src={recyclableBin} alt="Recyclable Waste Bin"/>
+                                            <p>Recycling waste</p>
+                                            <p>{wasteData.recyclableWaste} kg</p>
+
+                                        </div>
+                                        <div className="bin">
+                                            <div>
+                                                <img src={regularBin} alt="Regular Waste Bin"/>
+                                                <p>Domestic Waste</p>
+                                            </div>
+                                            <p>{wasteData.regularWaste} kg</p>
+                                        </div>
+                                    </div>
+                                    <div className="circular-progress">
+                                        <div className="progress-item">
+                                            <CircularProgressbar value={foodWastePercentage} maxValue={100}
+                                                                 text={`${foodWastePercentage.toFixed(1)}%`}
+                                                                 styles={{
+                                                                     path: {
+                                                                         stroke: foodWastePercentage > 80 ? 'red' : '#3e98c7', // Default stroke color
+                                                                     },
+                                                                     text: {
+                                                                         fill: '#000', // Text color
+                                                                         fontSize: '16px', // Text size
+                                                                     },
+                                                                 }}
+                                                                 className={foodWastePercentage > 80 ? 'progress-bar-warning' : 'progress-bar'}
+                                            />
+                                            <p>Food Waste</p>
+                                        </div>
+                                        <div className="progress-item">
+                                            <CircularProgressbar value={eWastePercentage} maxValue={100}
+                                                                 text={`${eWastePercentage.toFixed(1)}%`}
+                                                                 styles={{
+                                                                     path: {
+                                                                         stroke: eWastePercentage > 80 ? 'red' : '#3e98c7', // Default stroke color
+                                                                     },
+                                                                     text: {
+                                                                         fill: '#000', // Text color
+                                                                         fontSize: '16px', // Text size
+                                                                     },
+                                                                 }}
+                                                                 className={eWastePercentage > 80 ? 'progress-bar-warning' : 'progress-bar'}/>
+                                            <p>E-Waste</p>
+                                        </div>
+                                        <div className="progress-item">
+                                            <CircularProgressbar value={recyclableWastePercentage} maxValue={100}
+                                                                 text={`${recyclableWastePercentage.toFixed(1)}%`}
+                                                                 styles={{
+                                                                     path: {
+                                                                         stroke: recyclableWastePercentage > 80 ? 'red' : '#3e98c7', // Default stroke color
+                                                                     },
+                                                                     text: {
+                                                                         fill: '#000', // Text color
+                                                                         fontSize: '16px', // Text size
+                                                                     },
+                                                                 }}
+                                                                 className={recyclableWastePercentage > 80 ? 'progress-bar-warning' : 'progress-bar'}/>
+                                            <p>Recyclable</p>
+                                        </div>
+                                        <div className="progress-item">
+                                            <CircularProgressbar value={regularWastePercentage} maxValue={100}
+                                                                 text={`${regularWastePercentage.toFixed(1)}%`}
+                                                                 styles={{
+                                                                     path: {
+                                                                         stroke: regularWastePercentage > 80 ? 'red' : '#3e98c7', // Default stroke color
+                                                                     },
+                                                                     text: {
+                                                                         fill: '#000', // Text color
+                                                                         fontSize: '16px', // Text size
+                                                                     },
+                                                                 }}
+                                                                 className={regularWastePercentage > 80 ? 'progress-bar-warning' : 'progress-bar'}/>
+                                            <p>Regular</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                                 <div>
                                     <div className="rewardRedeemContainer">
                                         <h2 className="rewardHeader">Fine and Points You will Gain</h2>
                                         <div className="rewardContent">
-                                        <div className="leftContent">
+                                            <div className="leftContent">
                                                 <img
                                                     src="http://getdrawings.com/free-icon-bw/reward-points-icon-20.png" // Replace with your icon URL
                                                     alt="Icon"
@@ -325,7 +393,7 @@ const Dashboard = () => {
                                                     alt="Icon"
                                                     className="rewardIcon"
                                                 />
-                                                <span className="rewardValue">{wasteData.foodWaste * 10} Fine</span>
+                                                <span className="rewardValue">LKR {wasteData.foodWaste * 10} Fine</span>
                                             </div>
                                         </div>
                                     </div>

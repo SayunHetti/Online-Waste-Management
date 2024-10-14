@@ -1,11 +1,12 @@
 .bin-summary-container {
-    padding: 20px;
-
+    padding: 60px;
     border: 2px solid green;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 100px;
     background-color: white;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Column layout */
+    align-items: center;
 }
 
 .bin-summary-heading {
@@ -13,7 +14,13 @@
     margin-bottom: 20px;
     color: #4caf50; /* Green color */
 }
+.bin-image {
+    width: 100%;
+    height: 90px;/* Adjust width as needed */
+    max-width: 90px; /* Max width for image */
+    margin-bottom: 20px; /* Space below the image */
 
+}
 .bin-summary-description {
     margin-bottom: 20px;
     font-size: 16px;
@@ -21,10 +28,10 @@
     text-align: center;
 }
 
-.bin-summary-details {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.bin-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 20px; /* Spacing between grid items */
 }
 
 .bin-summary {
@@ -32,7 +39,7 @@
     border: 1px solid green;
     border-radius: 8px;
     background-color: #f9f9f9;
-    transition: transform 0.2s; /* Animation on hover */
+    transition: transform 1s; /* Animation on hover */
     text-align: center; /* Center content */
 }
 
