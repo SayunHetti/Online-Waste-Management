@@ -24,7 +24,11 @@ const Login = () => {
 
             // Redirect or handle successful login
             setTimeout(() => {
-                navigate('/Dashboard'); // Redirect to login page
+                if (response.data.role === 'EMPLOYEE') {
+                    navigate('/employeeLogin');
+                } else {
+                    navigate('/dashboard');
+                } // Redirect to login page
             }, 800);
         } catch (err) {
             setError('Login failed, please try again.');

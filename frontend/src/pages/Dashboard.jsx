@@ -126,24 +126,24 @@ const Dashboard = () => {
     };
 
     // Handle delete
-    const handleDelete = async () => {
-        if (!userId || !token) {
-            alert('User is not authenticated');
-            return;
-        }
-
-        try {
-            await axios.delete(`http://localhost:8080/user/waste/delete/${userId}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            alert('Waste entry deleted successfully');
-            setTimeout(() => {
-                window.location.reload(); // Reload the page after update
-            }, 800);
-        } catch (err) {
-            alert('Error deleting waste entry');
-        }
-    };
+    // const handleDelete = async () => {
+    //     if (!userId || !token) {
+    //         alert('User is not authenticated');
+    //         return;
+    //     }
+    //
+    //     try {
+    //         await axios.delete(`http://localhost:8080/user/waste/delete/${userId}`, {
+    //             headers: { Authorization: `Bearer ${token}` },
+    //         });
+    //         alert('Waste entry deleted successfully');
+    //         setTimeout(() => {
+    //             window.location.reload(); // Reload the page after update
+    //         }, 800);
+    //     } catch (err) {
+    //         alert('Error deleting waste entry');
+    //     }
+    // };
 
     return (
         <div>
@@ -285,15 +285,16 @@ const Dashboard = () => {
                                         <p>Food</p>
                                     </div>
                                     <div className="progress-item">
-                                        <CircularProgressbar value={wasteData.recyclableWaste} maxValue={100}
-                                                             text={`${wasteData.recyclableWaste}%`}/>
-                                        <p>Recyclable</p>
-                                    </div>
-                                    <div className="progress-item">
                                         <CircularProgressbar value={wasteData.ewaste} maxValue={100}
                                                              text={`${wasteData.ewaste}%`}/>
                                         <p>E-Waste</p>
                                     </div>
+                                    <div className="progress-item">
+                                        <CircularProgressbar value={wasteData.recyclableWaste} maxValue={100}
+                                                             text={`${wasteData.recyclableWaste}%`}/>
+                                        <p>Recyclable</p>
+                                    </div>
+
                                     <div className="progress-item">
                                         <CircularProgressbar value={wasteData.regularWaste} maxValue={100}
                                                              text={`${wasteData.regularWaste}%`}/>
@@ -305,54 +306,44 @@ const Dashboard = () => {
                                     <div className="rewardRedeemContainer">
                                         <h2 className="rewardHeader">Payments</h2>
                                         <div className="rewardContent">
-                                            <div className="leftContent">
+                                        <div className="leftContent">
                                                 <img
                                                     src="http://getdrawings.com/free-icon-bw/reward-points-icon-20.png" // Replace with your icon URL
                                                     alt="Icon"
                                                     className="rewardIcon"
                                                 />
                                                 <span
-                                                    className="rewardValue">{wasteData.recyclableWaste * 10} points</span>
+                                                    className="rewardValue">{wasteData.recyclableWaste * 5} points</span>
+                                            </div>
+
+                                        </div>
+                                        <div className="rewardContent">
+                                            <div className="leftContent">
+                                                <img
+                                                    src="https://cdn2.iconfinder.com/data/icons/business-03-solid/64/Bill-document-file-finance-money-page-1024.png" // Replace with your icon URL
+                                                    alt="Icon"
+                                                    className="rewardIcon"
+                                                />
+                                                <span className="rewardValue">Payment Summary</span>
                                             </div>
                                             <Link to="/add-request" className="redeemButton">View</Link>
                                         </div>
-                                        <div className="rewardContent">
-                                            <div className="leftContent">
-                                                <img
-                                                    src="https://cdn2.iconfinder.com/data/icons/business-03-solid/64/Bill-document-file-finance-money-page-1024.png" // Replace with your icon URL
-                                                    alt="Icon"
-                                                    className="rewardIcon"
-                                                />
-                                                <span className="rewardValue">LKR {wasteData.foodWaste * 10}</span>
-                                            </div>
-                                            <Link to="/add-request" className="redeemButton">Pay</Link>
-                                        </div>
                                     </div>
                                     <div className="rewardRedeemContainer">
-                                        <h2 className="rewardHeader">History Table</h2>
+                                        <h2 className="rewardHeader">Bin Details</h2>
                                         <div className="rewardContent">
                                             <div className="leftContent">
                                                 <img
-                                                    src="http://getdrawings.com/free-icon-bw/reward-points-icon-20.png" // Replace with your icon URL
+                                                    src="https://vectorified.com/images/bin-icon-16.png" // Replace with your icon URL
                                                     alt="Icon"
                                                     className="rewardIcon"
                                                 />
                                                 <span
-                                                    className="rewardValue">{wasteData.recyclableWaste * 50} points</span>
+                                                    className="rewardValue">Bin Summary</span>
                                             </div>
                                             <Link to="/payment" className="redeemButton">View</Link>
                                         </div>
-                                        <div className="rewardContent">
-                                            <div className="leftContent">
-                                                <img
-                                                    src="https://cdn2.iconfinder.com/data/icons/business-03-solid/64/Bill-document-file-finance-money-page-1024.png" // Replace with your icon URL
-                                                    alt="Icon"
-                                                    className="rewardIcon"
-                                                />
-                                                <span className="rewardValue">LKR {wasteData.foodWaste * 10}</span>
-                                            </div>
-                                            <Link to="/payment" className="redeemButton">Pay</Link>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

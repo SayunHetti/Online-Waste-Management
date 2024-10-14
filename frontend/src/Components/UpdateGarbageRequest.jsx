@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import './UpdateGarbageRequest.css';
+import '../assets/CSS/UpdateGarbageRequest.css';
 
 const UpdateGarbageRequest = () => {
     const { userId, requestId } = useParams();

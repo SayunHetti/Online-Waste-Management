@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './ViewGarbageRequests.css';
+import '../assets/CSS/ViewGarbageRequests.css';
 
 const ViewGarbageRequests = () => {
     const [requests, setRequests] = useState([]);
@@ -47,7 +47,10 @@ const ViewGarbageRequests = () => {
     }, []);
 
     useEffect(() => {
-        const totalRecyclableWaste = requests.reduce((sum, request) => sum + (request.recyclableWaste || 0), 0);
+        // Filter out completed requests for calculations
+        const activeRequests = requests.filter(request => !request.completed);
+
+        const totalRecyclableWaste = activeRequests.reduce((sum, request) => sum + (request.recyclableWaste || 0), 0);
         const roundedRecyclableWaste = Math.round(totalRecyclableWaste);
         const points = roundedRecyclableWaste * 5;
         const priceReduction = points * 0.1;
@@ -55,13 +58,13 @@ const ViewGarbageRequests = () => {
         setRedeemPoints(points);
         setRedeemPrice(priceReduction);
 
-        const totalFoodWaste = requests.reduce((sum, request) => sum + (request.foodWaste || 0), 0);
+        const totalFoodWaste = activeRequests.reduce((sum, request) => sum + (request.foodWaste || 0), 0);
         const roundedFoodWaste = Math.round(totalFoodWaste);
         const fine = Math.floor(roundedFoodWaste / 2) * 10;
 
         setFineAmount(fine);
 
-        const totalWeight = requests.reduce((sum, request) => sum + (request.totalWeight || 0), 0);
+        const totalWeight = activeRequests.reduce((sum, request) => sum + (request.totalWeight || 0), 0);
         const roundedTotalWeight = Math.round(totalWeight);
         const basePrice = Math.floor(roundedTotalWeight / 5) * 20;
 
@@ -115,12 +118,7 @@ const ViewGarbageRequests = () => {
 
     return (
         <div className="garbageRequests__container">
-            <button
-                className="garbageRequests__addButton"
-                onClick={() => navigate('/add-request')}
-            >
-                Add Request
-            </button>
+
             <h2 className="garbageRequests__title">Your Garbage Requests</h2>
             {requests.length === 0 ? (
                 <p className="garbageRequests__noRequests">You have not made any garbage requests yet.</p>
@@ -130,10 +128,10 @@ const ViewGarbageRequests = () => {
                         <thead className="garbageRequests__tableHeader">
                         <tr>
                             <th>ID</th>
-                            <th>Food Waste</th>
-                            <th>E-Waste</th>
-                            <th>Recyclable Waste</th>
-                            <th>Regular Waste</th>
+                            <th>Food Waste(Kg)</th>
+                            <th>E-Waste(Kg)</th>
+                            <th>Recyclable Waste(Kg)</th>
+                            <th>Regular Waste(Kg)</th>
                             <th>Total Weight</th>
                             <th>Request Date</th>
                             <th>Address</th>
@@ -164,6 +162,7 @@ const ViewGarbageRequests = () => {
                                     <button
                                         onClick={() => handleUpdateClick(request.id)}
                                         className="garbageRequests__updateButton"
+                                        disabled={request.completed}
                                     >
                                         Update
                                     </button>
@@ -172,6 +171,7 @@ const ViewGarbageRequests = () => {
                                     <button
                                         onClick={() => handleDelete(request.id)}
                                         className="garbageRequests__deleteButton"
+                                        disabled={request.completed}
                                     >
                                         Delete
                                     </button>
