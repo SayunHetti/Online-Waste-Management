@@ -57,7 +57,9 @@ const ViewGarbageRequests = () => {
 
         const totalFoodWaste = requests.reduce((sum, request) => sum + (request.foodWaste || 0), 0);
         const roundedFoodWaste = Math.round(totalFoodWaste);
-        const fine = Math.floor(roundedFoodWaste / 2) * 10;
+        const excessFoodWaste = Math.max(0, roundedFoodWaste - 2); // Calculate excess food waste above 2 kg
+        const fine = excessFoodWaste * 10; // 10 LKR fine for each kg above 2 kg
+
 
         setFineAmount(fine);
 
