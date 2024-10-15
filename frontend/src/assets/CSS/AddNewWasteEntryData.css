@@ -1,0 +1,65 @@
+/* Overlay container */
+.overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Adjust width as needed */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for 3D effect */
+    z-index: 1000; /* Ensure it is on top of other content */
+}
+
+/* Heading styles */
+.overlay-heading {
+    color: #333; /* Dark text color */
+    margin-bottom: 15px;
+    text-align: center; /* Center the heading */
+}
+
+/* Label styles */
+.overlay-label {
+    display: block;
+    margin-bottom: 10px;
+    margin-right:20px; /* Space between labels */
+    color: #555; /* Slightly lighter text color */
+}
+
+/* Input field styles */
+.overlay-input {
+    width: 100%; /* Full width */
+    padding: 10px;
+ /* Padding inside the input */
+    margin-top: 10px; /* Space between label and input */
+
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for input fields */
+}
+
+/* Button styles */
+.overlay-button {
+    width: 50%; /* Full width */
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Button shadow */
+}
+
+.overlay-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Error message styles */
+.error-message {
+    color: red; /* Red text color for error messages */
+    margin-top: -10px; /* Bring it closer to the input */
+    margin-bottom: 10px; /* Space below the error message */
+    font-size: 0.9em; /* Slightly smaller text */
+}

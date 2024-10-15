@@ -1,0 +1,76 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.profile-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px; /* Max width for the container */
+}
+
+.unsaved-warning {
+    color: red;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: darkgreen;
+    color: white;
+}
+
+button:hover {
+    background-color: #005700; /* Darker green on hover */
+}
+
+button[style*="color: red"] {
+    background-color: transparent;
+    color: red;
+    border: 1px solid red;
+}
+
+button[style*="color: red"]:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+
+.flex-content-update-delete {
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    margin: 20px 0; /* Add some margin above and below */
+}
+
+.update-delete-button-container {
+    display: flex;
+    justify-content: space-between; /* Space the buttons evenly */
+    width: 300px; /* Adjust width as needed */
+}
+
+.my-profile-header
+{
+    padding: 5px;
+    margin-bottom: 5px;
+}

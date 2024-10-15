@@ -1,0 +1,243 @@
+/* Main container for bin status */
+.bin-status-container {
+    max-width: 800px; /* Maximum width */
+    margin: 20px auto; /* Centering */
+    padding: 20px; /* Padding inside the container */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    text-align: center; /* Center the text */
+}
+.bin-status-heading {
+    font-size: 28px; /* Size of the heading */
+    font-weight: 700; /* Bold font weight */
+    color: #333; /* Dark text color for visibility */
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px; /* Space below the heading */
+    text-transform: uppercase; /* Optional: make the text uppercase */
+    letter-spacing: 1px; /* Space between letters for a modern touch */
+}
+.unique-dashboard-title {
+    font-size: 2em; /* Adjust size as needed */
+    font-weight: bold;
+    color: black; /* A nice blue color */
+    text-align: center;
+    padding: 20px 0; /* Space above and below */
+    border-bottom: 2px solid #D1D1D1; /* Subtle bottom border */
+    margin: 0; /* Remove default margin */
+    text-transform: uppercase; /* Transform text to uppercase */
+    letter-spacing: 1px; /* Spacing between letters */
+    font-family: 'Arial', sans-serif; /* Font family */
+}
+
+/* Heading styles */
+h2 {
+    color: #333; /* Dark text color */
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+/* Slider for bin images */
+.bins {
+    display: flex; /* Flex layout for sliding */
+    overflow-x: auto; /* Horizontal scroll */
+    scroll-snap-type: x mandatory; /* Snap effect for sliding */
+    padding: 10px 0; /* Padding for the slider */
+}
+
+.bin {
+    flex: 0 0 auto; /* Prevent bins from shrinking */
+    width: 150px; /* Fixed width for each bin */
+    margin: 0 20px; /* Space between bins */
+    scroll-snap-align: center; /* Align the bins */
+}
+
+.bin img {
+
+    width: 100%; /* Responsive images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners for images */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for images */
+}
+
+/* Text under bins */
+.bin p {
+    margin-left: 10px;
+    margin-top: 5px; /* Space above text */
+    font-weight: bold; /* Bold text */
+    color: #555; /* Slightly lighter text color */
+}
+
+/* Circular Progress styles */
+.circular-progress {
+    display: flex; /* Use flexbox for layout */
+    gap: 100px; /* Space between progress items */
+    margin-top: 20px;
+    margin-left: 75px;/* Space above progress items */
+    margin-bottom: 20px; /* Space below progress items */
+}
+.progress-bar-warning {
+    stroke: red; /* Warning color */
+}
+
+.progress-item {
+    text-align: center; /* Center the text */
+    width: 80px; /* Fixed width for the progress circles */
+    height: 80px;
+}
+
+.progress-item p {
+    margin-top: 5px; /* Space above text */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark text color */
+}
+
+/* Button styles */
+button {
+    margin: 10px; /* Space around buttons */
+    padding: 10px 20px; /* Padding inside buttons */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Button shadow */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+button:disabled {
+    background-color: #ccc; /* Grey background when disabled */
+    cursor: not-allowed; /* Not allowed cursor */
+}
+/* Update Waste Data Container */
+.update-waste-container {
+    max-width: 400px; /* Container width */
+    margin: 0 auto;
+    margin-top: 50px;/* Center the container */
+    padding: 20px; /* Padding around the content */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+/* Heading styles */
+.update-heading {
+    color: #333; /* Dark text color */
+    margin-bottom: 20px; /* Space below the heading */
+    text-align: center; /* Center the heading */
+}
+
+/* Label styles */
+.update-label {
+    display: block; /* Block display for labels */
+    margin-bottom: 10px; /* Space below each label */
+    color: #555; /* Slightly lighter text color */
+}
+
+/* Input field styles */
+.update-input {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside the input */
+    margin-top: 5px; /* Space between label and input */
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for input fields */
+}
+
+/* Button styles */
+.update-button {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside the button */
+    margin-top: 15px; /* Space above the button */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Button shadow */
+}
+
+.update-button:disabled {
+    background-color: #ccc; /* Grey background when disabled */
+    cursor: not-allowed; /* Not allowed cursor */
+}
+
+.update-button:hover:not(:disabled) {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+
+
+
+                        /* 2nd Container Css */
+
+.rewardRedeemContainer {
+    padding: 20px;
+    margin-right:200px;
+    margin-top: 20px;/* Padding for the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow */
+   /* Margin around the container */
+    background-color: white; /* Background color */
+}
+
+.rewardHeader {
+    margin-bottom: 20px;/* Remove default margin */
+    font-size: 24px; /* Header font size */
+}
+
+.rewardContent {
+    margin-top: 20px;
+    display: flex; /* Flex layout */
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Center align items vertically */
+    /* Space between header and content */
+}
+
+.leftContent {
+    display: flex; /* Flex layout for left content */
+    align-items: center; /* Center align icon and value */
+}
+
+.rewardIcon {
+    width: 1.5cm; /* Icon width */
+    height: 1.5cm; /* Icon height */
+    margin-right: 10px; /* Space between icon and value */
+}
+
+.rewardValue {
+    font-size: 26px; /* Larger font size for the value */
+}
+
+.redeemButton {
+    margin-left: 30px;
+    padding: 10px 15px; /* Button padding */
+    background-color: darkgreen; /* Button background color */
+    color: white; /* Button text color */
+    text-decoration: none; /* Remove underline from link */
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.redeemButton:hover {
+    background-color: #005700; /* Darker green on hover */
+}
+
+
+.flex_BigContainer_rewardRedeemContainer {
+    display: flex; /* Enable flexbox for the container */
+    justify-content: space-between; /* Space out the two containers */
+    align-items: flex-start; /* Align items at the start */
+    margin: 5px; /* Margin for spacing */
+    gap: 5px; /* Optional: space between the two containers */
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height for centering */
+}

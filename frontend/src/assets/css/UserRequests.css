@@ -1,0 +1,109 @@
+.user-requests-container {
+    font-family: 'Arial', sans-serif;
+    padding: 40px 20px;
+    background-color: #f8f9fc;
+    min-height: 100vh;
+}
+
+.user-requests-header {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.loader {
+    border: 5px solid #ccc;
+    border-top: 5px solid #28a745;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+.no-requests {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.add-request-button {
+    margin-top: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.add-request-button:hover {
+    background-color: #218838;
+}
+
+.requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.requests-table thead {
+    background-color: #28a745;
+    color: white;
+}
+
+.requests-table th, .requests-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.requests-table tbody tr {
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.requests-table tbody tr:hover {
+    background-color: #f1f8e9; /* Light green on hover */
+}
+
+.status-ongoing {
+    color: #dc3545; /* Red for ongoing status */
+    font-weight: bold;
+}
+
+.track-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.track-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.track-button:hover {
+    background-color: #218838;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

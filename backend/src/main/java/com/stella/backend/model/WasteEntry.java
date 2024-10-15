@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -26,6 +29,10 @@ public class WasteEntry {
     private Double eWaste;
     private Double recyclableWaste;
     private Double regularWaste;
+    // Automatically store the date and time when the record is created
+    @CreationTimestamp
+    @Column(updatable = false) // This makes sure the field is not updated after the entity is created
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "user_id", insertable = false, updatable = false)
