@@ -32,7 +32,7 @@ const Register = () => {
 
             setSuccess('Registration successful!');
             setTimeout(() => {
-                navigate('/login'); // Redirect to login page
+                navigate('/'); // Redirect to login page
             }, 800);
 
         } catch (err) {
