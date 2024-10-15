@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
-import '../assets/css/FormSubmissionPage.css'; // Import the stylesheet
+import '../../assets/CSS/FormSubmissionPage.css'; // Import the stylesheet
 
 const FormSubmissionPage = () => {
     const { requestId } = useParams();

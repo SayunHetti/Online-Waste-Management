@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/UserRequests.css'; // Import the CSS file
+import '../../assets/CSS/UserRequests.css'; // Import the CSS file
 
 const UserRequests = () => {
     const [requests, setRequests] = useState([]);

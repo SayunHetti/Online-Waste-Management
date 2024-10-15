@@ -1,7 +1,6 @@
-import React from 'react';
 import '../assets/CSS/Header.css';
 
-const Header = () => {
+const UnauthorizedHeader = () => {
     return (
         <div className="header">
             <div className="left-section">
@@ -16,4 +15,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default UnauthorizedHeader;

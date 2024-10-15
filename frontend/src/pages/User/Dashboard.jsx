@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../assets/CSS/DashboardCSS.css';
-import '../assets/CSS/AddNewWasteEntryData.css';
-import foodBin from '../assets/images/FoodBin.png';
-import eWasteBin from '../assets/images/InOrganicBin.png';
-import recyclableBin from '../assets/images/RecyclableBin.png';
-import regularBin from '../assets/images/OrganicBin.png';
+import '../../assets/CSS/DashboardCSS.css';
+import '../../assets/CSS/AddNewWasteEntryData.css';
+import foodBin from '../../assets/images/FoodBin.png';
+import eWasteBin from '../../assets/images/InOrganicBin.png';
+import recyclableBin from '../../assets/images/RecyclableBin.png';
+import regularBin from '../../assets/images/OrganicBin.png';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {Link, useNavigate} from "react-router-dom";

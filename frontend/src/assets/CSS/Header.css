@@ -8,7 +8,7 @@
 .header-title {
     margin-left: 550px; /* Space between logo and title */
     font-size: 24px; /* Adjust the font size as needed */
-    color: black; /* Text color */
+    color: white; /* Text color */
 }
 .left-section {
     display: flex;

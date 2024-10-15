@@ -132,7 +132,7 @@ const Register = () => {
                     {error && <p className="error-message">{error}</p>}
                     {success && <p className="success-message">{success}</p>}
                     <div className="login-link-section">
-                        <p>Already have an account? <a href="/login" className="login-link">Login</a></p>
+                        <p>Already have an account? <a href="/" className="login-link">Login</a></p>
                     </div>
                 </div>
             </div>

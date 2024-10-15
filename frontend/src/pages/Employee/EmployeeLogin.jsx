@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../assets/css/EmployeeLogin.css'; // Import the CSS file
+import '../../assets/CSS/EmployeeLogin.css'; // Import the CSS file
 
 const EmployeeLogin = () => {
     const [code, setCode] = useState('');

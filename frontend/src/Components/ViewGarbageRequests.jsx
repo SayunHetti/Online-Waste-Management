@@ -13,7 +13,26 @@ const ViewGarbageRequests = () => {
     const [totalWeightBill, setTotalWeightBill] = useState(0);
     const [totalBill, setTotalBill] = useState(0);
     const navigate = useNavigate();
+    const areaCharges = {
+        'District 1': 50,  // Colombo
+        'District 2': 60,  // Gampaha
+        'District 3': 70,  // Kaluthara
+        'District 4': 80,  // Galle
+        'District 5': 90,  // Mathara
+        'District 6': 100, // Hambanthota
+        'District 7': 65,  // Negombo
+        'District 8': 75,  // Kandy
+        'District 9': 55,  // Rathnapura
+        'District 10': 85, // Badulla
+        'District 11': 70, // Jaffna
+        'District 12': 60, // Mulative
+        'District 13': 50, // Chilaw
+        'District 14': 90, // Ampara
+        'District 15': 80, // Polonnaruwa
+    };
 
+    const [extraCharge, setExtraCharge] = useState(0);
+    const [extraChargeDescription, setExtraChargeDescription] = useState('');
     useEffect(() => {
         const fetchRequests = async () => {
             const userId = localStorage.getItem('user_id');
@@ -42,7 +61,6 @@ const ViewGarbageRequests = () => {
                 setLoading(false);
             }
         };
-
         fetchRequests();
     }, []);
 
@@ -70,8 +88,14 @@ const ViewGarbageRequests = () => {
 
         setTotalWeightBill(basePrice);
 
-        // Calculate total bill automatically when values change
-        const calculatedTotalBill = basePrice + fine - priceReduction;
+        const area = activeRequests.length > 0 ? activeRequests[0].area : ''; // Assuming area is a direct field
+        const charge = areaCharges[area] || 0;
+
+        setExtraCharge(charge);
+        setExtraChargeDescription(charge > 0 ? `Extra charge for Your Area:` : '');
+
+        // Calculate total bill including the extra charge
+        const calculatedTotalBill = basePrice + fine - priceReduction + charge;
         setTotalBill(calculatedTotalBill);
     }, [requests]);
 
@@ -208,6 +232,13 @@ const ViewGarbageRequests = () => {
                         <span>Fine Amount:</span>
                         <span>Rs. {fineAmount}</span>
                     </div>
+                    {extraCharge > 0 && (
+                        <div className="garbageRequests__billingItem">
+                            <span>{extraChargeDescription}</span>
+                            <span>Rs. {extraCharge}</span>
+                        </div>
+                    )}
+                    <hr />
                     <hr/>
                     <div className="garbageRequests__billingItem">
                         <span>Total Bill:</span>

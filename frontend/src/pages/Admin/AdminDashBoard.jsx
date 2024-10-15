@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./AdminB.css";
+import "../../assets/CSS/AdminB.css";
 import axios from "axios";
 import WasteBarChart from './WasteBarChart'; // Import the BarChart component
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import '../assets/CSS/BinSummary.css';
-import binImage from '../assets/images/recycling-bin-full.jpg';// Ensure you create this CSS file
+import '../../assets/CSS/BinSummary.css';
+import binImage from '../../assets/images/recycling-bin-full.jpg';// Ensure you create this CSS file
 
 const BinSummary = () => {
     return (

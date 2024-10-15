@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import axios from 'axios';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import '../assets/css/RequestTracking.css'; // Import the CSS file
+import '../../assets/CSS/RequestTracking.css'; // Import the CSS file
 
 // Custom red marker for the user location
 const createIcon = (size) => new L.Icon({

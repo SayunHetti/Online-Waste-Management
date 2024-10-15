@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../assets/css/HistoryPage.css'; // Import the CSS file
+import '../../assets/CSS/HistoryPage.css'; // Import the CSS file
 
 const HistoryPage = () => {
     const [history, setHistory] = useState([]);

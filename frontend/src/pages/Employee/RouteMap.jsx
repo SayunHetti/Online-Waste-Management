@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import axios from 'axios';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import '../assets/css/MapPage.css'; // Importing the stylesheet
+import '../../assets/CSS/MapPage.css'; // Importing the stylesheet
 
 const createIcon = (size) => new L.Icon({
     iconUrl: 'https://cdn3.iconfinder.com/data/icons/map-pins-v-2/512/map_pin_destination_location_adress_street-256.png',

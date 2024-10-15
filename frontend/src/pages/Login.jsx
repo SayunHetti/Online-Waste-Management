@@ -35,7 +35,7 @@ const Login = () => {
                 }
             }, 800);
         } catch (err) {
-            setError('Login failed, please try again.');
+            setError(err);
         }
     };
 

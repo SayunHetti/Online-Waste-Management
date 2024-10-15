@@ -1,6 +1,6 @@
 // RatingPage.js
 import { useEffect, useState } from "react";
-import "./AdminB.css";
+import "../../assets/CSS/AdminB.css";
 import axios from "axios";
 
 function RatingPage() {
